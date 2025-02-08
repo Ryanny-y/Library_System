@@ -23,7 +23,7 @@ public class AuthButton extends JButton{
     protected void paintChildren(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setColor(Color.decode("#764BA2"));
+        g2.setColor(Color.decode("#1B4C8C"));
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), 5, 5);
         
         // Draw the button text

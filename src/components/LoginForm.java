@@ -86,7 +86,7 @@ public class LoginForm extends javax.swing.JPanel implements ActionListener {
         jLabel2.setForeground(new java.awt.Color(102, 102, 102));
         jLabel2.setText("Password");
 
-        LoginBtn.setBackground(new java.awt.Color(118, 75, 162));
+        LoginBtn.setBackground(new java.awt.Color(27, 76, 140));
         LoginBtn.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         LoginBtn.setForeground(new java.awt.Color(255, 255, 255));
         LoginBtn.setText("Login");
@@ -99,7 +99,7 @@ public class LoginForm extends javax.swing.JPanel implements ActionListener {
         jLabel3.setText("Don't have account?");
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(118, 75, 162));
+        jButton1.setForeground(new java.awt.Color(27, 76, 140));
         jButton1.setText("Login");
         jButton1.setBorder(null);
         jButton1.setBorderPainted(false);

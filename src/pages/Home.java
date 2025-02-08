@@ -1,15 +1,47 @@
 package pages;
 
 import java.awt.Color;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import model.Book_Model;
+import swing.BookContainer;
 
 public class Home extends javax.swing.JFrame {
 
+    ArrayList<Book_Model> bookList = new ArrayList<>();
+    
     public Home() {
         initComponents();
         setBackground(new Color(0,0,0,0));
         menu1.initMoving(this);
         setVisible(true);
         headerPanel.setOpaque(false);
+        
+        bookInit();
+    }
+    
+    private void bookInit() {
+        
+        Book_Model book1 = new Book_Model(12, 2025, "Harry Potter", "Ryan Mabahin", "Harry_Potter", true, LocalDate.of(2024, 2, 9));
+        Book_Model book2 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", true, LocalDate.of(2024, 2, 9));
+        Book_Model book3 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", true, LocalDate.of(2024, 2, 9));
+        Book_Model book4 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", true, LocalDate.of(2024, 2, 9));
+        Book_Model book5 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", true, LocalDate.of(2024, 2, 9));
+        Book_Model book6 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", true, LocalDate.of(2024, 2, 9));
+        Book_Model book7 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", true, LocalDate.of(2024, 2, 9));
+       
+        bookList.add(book1);
+        bookList.add(book2);
+        bookList.add(book3);
+        bookList.add(book4);
+        bookList.add(book5);
+         bookList.add(book6);
+          bookList.add(book7);
+        
+        BookContainer bookContainer = new BookContainer(bookList);
+        
+        
+        jScrollPane1.setViewportView(bookContainer);
     }
 
     @SuppressWarnings("unchecked")
@@ -48,7 +80,7 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(welcomeHeader)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(username)
-                .addContainerGap(519, Short.MAX_VALUE))
+                .addContainerGap(524, Short.MAX_VALUE))
         );
         headerPanelLayout.setVerticalGroup(
             headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -56,12 +88,14 @@ public class Home extends javax.swing.JFrame {
             .addComponent(welcomeHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        mainPanel.setBackground(new java.awt.Color(204, 204, 204));
         mainPanel.setOpaque(false);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 51, 255));
         jLabel1.setText("Featured Books");
+
+        jScrollPane1.setBorder(null);
+        jScrollPane1.setOpaque(false);
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
@@ -70,10 +104,10 @@ public class Home extends javax.swing.JFrame {
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
                     .addGroup(mainPanelLayout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(732, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

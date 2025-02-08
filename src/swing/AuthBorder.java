@@ -27,7 +27,7 @@ public class AuthBorder extends javax.swing.JPanel {
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        GradientPaint paint = new GradientPaint(0, 0, Color.decode("#667EEA"), 0, getHeight(), Color.decode("#764BA2"));
+        GradientPaint paint = new GradientPaint(0, 0, Color.decode("#1B4C8C"), 0, getHeight(), Color.decode("#F2E9E9"));
         g2.setPaint(paint);
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
         
