@@ -253,9 +253,6 @@ public class LoginForm extends javax.swing.JPanel implements ActionListener {
                 this.password = String.valueOf(password_field.getPassword());
             }
             
-            System.err.println("Field:" + email_field.getText());
-            
-            System.out.println(email + " " + password);
             JFrame topFrame = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
             if (topFrame != null) {
                     

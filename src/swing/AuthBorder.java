@@ -22,7 +22,7 @@ public class AuthBorder extends javax.swing.JPanel {
         initComponents();
         setOpaque(false);
     }
-
+    
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
