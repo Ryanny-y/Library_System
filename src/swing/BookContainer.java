@@ -25,7 +25,7 @@ public class BookContainer extends javax.swing.JPanel {
         gbc.insets = new Insets(0,0,0,0); 
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
-        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.anchor = GridBagConstraints.NORTH;//
         
         for (int i = 0; i < bookList.size(); i++) {  
             gbc.gridx = i % 5; 
