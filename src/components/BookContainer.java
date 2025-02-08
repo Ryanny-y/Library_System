@@ -1,4 +1,4 @@
-package swing;
+package components;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,6 +8,7 @@ import java.awt.Insets;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import model.Book_Model;
+import swing.Book_Card;
 
 public class BookContainer extends javax.swing.JPanel {
 
@@ -22,10 +23,10 @@ public class BookContainer extends javax.swing.JPanel {
     
      private void addComponents() {
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(0,0,0,0); 
-        gbc.weightx = 1.0;
-        gbc.weighty = 1.0;
-        gbc.anchor = GridBagConstraints.NORTH;//
+        gbc.insets = new Insets(10, 10, 10, 10); 
+        gbc.weightx = 1;
+        gbc.weighty = 0;
+        gbc.anchor = GridBagConstraints.NORTHWEST;
         
         for (int i = 0; i < bookList.size(); i++) {  
             gbc.gridx = i % 5; 
@@ -35,6 +36,9 @@ public class BookContainer extends javax.swing.JPanel {
             Book_Card card = new Book_Card(model);
             add(card, gbc);
         }
+        
+        gbc.weighty = 1;
+        add(new JPanel(), gbc); // Invisible filler
     }
 
     @SuppressWarnings("unchecked")

@@ -10,8 +10,6 @@ import pages.*;
 
 public class Parent_Panel extends javax.swing.JPanel {
 
-    
-    
     public Parent_Panel() {
         initComponents();
         init();
@@ -21,7 +19,7 @@ public class Parent_Panel extends javax.swing.JPanel {
     
     private void init() {
         Nav_Item item1 = new Nav_Item("Home", "Home", Home.class);
-        Nav_Item item2 = new Nav_Item("My books", "MyBooks", Login.class);
+        Nav_Item item2 = new Nav_Item("My books", "MyBooks", MyBooks.class);
         Nav_Item item3 = new Nav_Item("Favorites", "Favorites", Favorites.class);
         Nav_Item item4 = new Nav_Item("Profile", "Profile", Login.class);
         

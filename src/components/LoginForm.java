@@ -256,8 +256,8 @@ public class LoginForm extends javax.swing.JPanel implements ActionListener {
             JFrame topFrame = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
             if (topFrame != null) {
                     
-//                topFrame.dispose(); // Close the frame 
-//                new Home();
+                topFrame.dispose(); // Close the frame 
+                new Home();
             }
         }
     }
