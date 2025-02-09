@@ -17,7 +17,6 @@ public class NavParentPanel extends javax.swing.JPanel {
         initComponents();
         init();
         setOpaque(false);
-        System.out.println(user.role);
         
     }
     
