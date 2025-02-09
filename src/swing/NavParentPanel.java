@@ -8,20 +8,45 @@ import javax.swing.Box;
 import model.*;
 import pages.*;
 
-public class Parent_Panel extends javax.swing.JPanel {
+public class NavParentPanel extends javax.swing.JPanel {
 
-    public Parent_Panel() {
+    private User_Model user = new User_Model();
+    
+    
+    public NavParentPanel() {
         initComponents();
         init();
         setOpaque(false);
+        System.out.println(user.role);
         
     }
     
     private void init() {
+        if(user.role == "User") {
+            userNav();
+        } else if (user.role == "Admin") {
+            adminNav();
+        }
+       
+    }
+    
+    private void userNav() {
         Nav_Item item1 = new Nav_Item("Home", "Home", Home.class);
         Nav_Item item2 = new Nav_Item("My books", "MyBooks", MyBooks.class);
         Nav_Item item3 = new Nav_Item("Favorites", "Favorites", Favorites.class);
-        Nav_Item item4 = new Nav_Item("Profile", "Profile", Login.class);
+        Nav_Item item4 = new Nav_Item("Profile", "Profile", Profile.class);
+        
+        addNavItemWithGap(item1, 5);
+        addNavItemWithGap(item2, 5);
+        addNavItemWithGap(item3, 5);
+        addNavItemWithGap(item4, 5);
+    }
+    
+    private void adminNav() {
+        Nav_Item item1 = new Nav_Item("Dashboard", "Home", Admin_Dashboard.class);
+        Nav_Item item2 = new Nav_Item("Users", "Users", Admin_Users.class);
+        Nav_Item item3 = new Nav_Item("Books", "MyBooks", Admin_Books.class);
+        Nav_Item item4 = new Nav_Item("Profile", "Profile", Profile.class);
         
         addNavItemWithGap(item1, 5);
         addNavItemWithGap(item2, 5);

@@ -86,7 +86,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="swing.Parent_Panel" name="parent_Panel1">
+    <Component class="swing.NavParentPanel" name="parent_Panel1">
     </Component>
   </SubComponents>
 </Form>

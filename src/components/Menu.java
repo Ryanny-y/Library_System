@@ -72,7 +72,7 @@ public class Menu extends javax.swing.JPanel {
 
         MenuHeader = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        parent_Panel1 = new swing.Parent_Panel();
+        parent_Panel1 = new swing.NavParentPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(200, 363));
@@ -123,6 +123,6 @@ public class Menu extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel MenuHeader;
     private javax.swing.JLabel jLabel1;
-    private swing.Parent_Panel parent_Panel1;
+    private swing.NavParentPanel parent_Panel1;
     // End of variables declaration//GEN-END:variables
 }

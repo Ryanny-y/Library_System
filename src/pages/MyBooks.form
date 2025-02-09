@@ -71,7 +71,7 @@
       <SubComponents>
         <Component class="components.Menu" name="menu1">
         </Component>
-        <Component class="components.FrameHeader" name="frameHeader2">
+        <Component class="components.UserFrameHeader" name="frameHeader2">
         </Component>
         <Container class="javax.swing.JPanel" name="mainPanel">
           <Properties>

@@ -72,7 +72,7 @@ public class MyBooks extends javax.swing.JFrame {
 
         panelBorder1 = new swing.PanelBorder();
         menu1 = new components.Menu();
-        frameHeader2 = new components.FrameHeader();
+        frameHeader2 = new components.UserFrameHeader();
         mainPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -149,7 +149,7 @@ public class MyBooks extends javax.swing.JFrame {
 
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private components.FrameHeader frameHeader2;
+    private components.UserFrameHeader frameHeader2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel mainPanel;

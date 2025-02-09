@@ -8,12 +8,12 @@ package components;
  *
  * @author Ryan
  */
-public class FrameHeader extends javax.swing.JPanel {
+public class UserFrameHeader extends javax.swing.JPanel {
 
     /**
      * Creates new form FrameHeader
      */
-    public FrameHeader() {
+    public UserFrameHeader() {
         initComponents();
         setOpaque(false);
         lblName.setText("Ryan");
@@ -48,9 +48,9 @@ public class FrameHeader extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(lblName)
-                .addContainerGap(432, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

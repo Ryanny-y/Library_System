@@ -18,7 +18,7 @@ public class BookContainer extends javax.swing.JPanel {
         initComponents();
         this.bookList = bookList;
         addComponents();
-        setOpaque(false);
+        setBackground(new Color(0,0,0,0));
     }
     
      private void addComponents() {
@@ -46,7 +46,6 @@ public class BookContainer extends javax.swing.JPanel {
     private void initComponents() {
 
         setBackground(new java.awt.Color(255, 153, 153));
-        setOpaque(false);
         setLayout(new java.awt.GridBagLayout());
     }// </editor-fold>//GEN-END:initComponents
 

@@ -49,7 +49,7 @@ public class LoginForm extends javax.swing.JPanel implements ActionListener {
         email_field = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        LoginBtn = new AuthButton("Login", "Home");
+        LoginBtn = new AuthButton("Login");
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         password_field = new javax.swing.JPasswordField();

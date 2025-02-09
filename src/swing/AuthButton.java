@@ -10,10 +10,8 @@ import javax.swing.JButton;
 
 public class AuthButton extends JButton{
     
-    String path;
-    public AuthButton(String text, String path) {
+    public AuthButton(String text) {
         super(text);   
-        this.path = path;
         setOpaque(false);
         setContentAreaFilled(false);
         setBorderPainted(false);

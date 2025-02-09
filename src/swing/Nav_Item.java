@@ -34,7 +34,7 @@ public class Nav_Item extends javax.swing.JPanel {
             @Override
             public void mouseEntered(MouseEvent e) {
                 if(!isCurrent) {
-                    setBackground(new Color(102, 126, 234, 80));
+                    setBackground(Color.decode("#1B4C8C"));
                     setSelected(true);
                     repaint();
                     lblicon.setIcon(toIcon(icon + "-Current"));
@@ -94,7 +94,7 @@ public class Nav_Item extends javax.swing.JPanel {
                 lblicon.setIcon(toIcon(icon + "-Current"));
                 lblname.setForeground(Color.decode("#ffffff"));
                 isCurrent = true;
-                setBackground(new Color(102, 126, 234, 80));
+                setBackground(Color.decode("#1B4C8C"));
                 repaint();
             } else {
                 lblicon.setIcon(toIcon(icon));
