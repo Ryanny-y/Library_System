@@ -11,12 +11,15 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+import model.User_Model;
+import pages.Admin_Dashboard;
 import pages.Home;
 import swing.*;
 
 public class LoginForm extends javax.swing.JPanel implements ActionListener {
 
     private String email, password;
+    private User_Model user = new User_Model();
     
     public LoginForm() {
         initComponents();
@@ -255,9 +258,18 @@ public class LoginForm extends javax.swing.JPanel implements ActionListener {
             
             JFrame topFrame = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
             if (topFrame != null) {
-                    
                 topFrame.dispose(); // Close the frame 
-                new Home();
+                if(user.role == "User") {
+                    new Home();
+                } else if(user.role == "Admin") {
+                    new Admin_Dashboard();
+                } else {
+                    new Home();
+                }
+                
+                
+                
+                
             }
         }
     }
