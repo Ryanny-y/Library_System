@@ -1,10 +1,26 @@
 package model;
 
+import java.awt.Image;
 import java.time.LocalDate;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 public class Book_Model {
+
+    /**
+     * @return the overview
+     */
+    public String getOverview() {
+        return overview;
+    }
+
+    /**
+     * @param overview the overview to set
+     */
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
     
     public String getCover_img() {
         return cover_img;
@@ -63,17 +79,46 @@ public class Book_Model {
     }
 
     private int id, year_published;
-    private String title, author, cover_img;
+    private String title, author, cover_img, overview;
     private boolean isAvailable;
-    private LocalDate borrowed_date;
+    private LocalDate borrowed_date, created_at;
     
-    public Book_Model(int id, int year_published, String title, String author, String cover_img, boolean isAvailable, LocalDate borrowed_date) {
-        setId(id);
-        setYear_published(year_published);
-        setTitle(title);
-        setAuthor(author);
-        setCover_img(cover_img);
-        setIsAvailable(isAvailable);
-        setBorrowed_date(borrowed_date);
+    
+    public Icon toIcon(JLabel lbl, Book_Model book) {
+        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/images/Books/" + book.getCover_img() + ".jpg"));
+        Image image = imageIcon.getImage();
+        
+        // Get JLabel dimensions
+        int labelWidth = lbl.getPreferredSize().width;
+        int labelHeight = lbl.getPreferredSize().height;
+
+        // Get original image dimensions
+        int imageWidth = image.getWidth(null);
+        int imageHeight = image.getHeight(null);
+
+        // Calculate new width and height while keeping aspect ratio
+        double widthRatio = (double) labelWidth / imageWidth;
+        double heightRatio = (double) labelHeight / imageHeight;
+        double ratio = Math.min(widthRatio, heightRatio); // Maintain aspect ratio
+
+        int newWidth = (int) (imageWidth * ratio);
+        int newHeight = (int) (imageHeight * ratio);
+
+        // Resize image
+        Image resizedImage = image.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+
+         return new ImageIcon(resizedImage);
+    }
+    
+    
+    public Book_Model(int id, int year_published, String title, String author, String cover_img, String overview, boolean isAvailable, LocalDate borrowed_date) {
+        this.id = id; 
+        this.year_published= year_published;
+        this.title = title;
+        this.author = author;
+        this.cover_img = cover_img;
+        this.overview = overview;
+        this.isAvailable = isAvailable;
+        this.borrowed_date = borrowed_date;
     }
 }

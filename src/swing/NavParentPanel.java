@@ -1,4 +1,10 @@
 package swing;
+import pages.Admin.Admin_Books;
+import pages.Admin.Admin_Users;
+import pages.Admin.Admin_Dashboard;
+import pages.User.My_Books;
+import pages.User.Home;
+import pages.User.Favorites;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
@@ -31,7 +37,7 @@ public class NavParentPanel extends javax.swing.JPanel {
     
     private void userNav() {
         Nav_Item item1 = new Nav_Item("Home", "Home", Home.class);
-        Nav_Item item2 = new Nav_Item("My books", "MyBooks", MyBooks.class);
+        Nav_Item item2 = new Nav_Item("My books", "MyBooks", My_Books.class);
         Nav_Item item3 = new Nav_Item("Favorites", "Favorites", Favorites.class);
         Nav_Item item4 = new Nav_Item("Profile", "Profile", Profile.class);
         

@@ -1,6 +1,7 @@
 package components;
 
-import java.awt.BorderLayout;
+import pages.Admin.Admin_Dashboard;
+import pages.User.Home;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -12,8 +13,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import model.User_Model;
-import pages.Admin_Dashboard;
-import pages.Home;
+import pages.*;
 import swing.*;
 
 public class LoginForm extends javax.swing.JPanel implements ActionListener {
@@ -189,7 +189,11 @@ public class LoginForm extends javax.swing.JPanel implements ActionListener {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-         System.out.println("Login button clicked!");
+        JFrame topFrame = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
+        if (topFrame != null) {
+            topFrame.dispose(); // Close the frame 
+            new Sign_Up();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void password_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_password_fieldActionPerformed
@@ -266,10 +270,6 @@ public class LoginForm extends javax.swing.JPanel implements ActionListener {
                 } else {
                     new Home();
                 }
-                
-                
-                
-                
             }
         }
     }

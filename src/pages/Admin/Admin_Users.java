@@ -1,8 +1,8 @@
 
-package pages;
+package pages.Admin;
 
 import java.awt.Color;
-import swing.TotalCardPanel;
+import swing.Stats_Card;
 
 public class Admin_Users extends javax.swing.JFrame {
 
@@ -23,7 +23,6 @@ public class Admin_Users extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1080, 600));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));

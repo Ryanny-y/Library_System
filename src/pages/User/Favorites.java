@@ -1,18 +1,14 @@
-package pages;
-
+package pages.User;
+import components.BookContainer;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import model.Book_Model;
-import components.BookContainer;
-import java.awt.Dimension;
 import javax.swing.JScrollBar;
+import model.Book_Model;
 
-public class Home extends javax.swing.JFrame {
-
-    ArrayList<Book_Model> bookList = new ArrayList<>();
-    
-    public Home() {
+public class Favorites extends javax.swing.JFrame {
+    public Favorites() {
         initComponents();
         setBackground(new Color(0,0,0,0));
         menu1.initMoving(this);
@@ -23,20 +19,22 @@ public class Home extends javax.swing.JFrame {
         bookInit();
     }
     
+    ArrayList<Book_Model> bookList = new ArrayList<>();
+    
     private void bookInit() {
         
-        Book_Model book1 = new Book_Model(12, 2025, "Harry Potter", "Ryan Mabahin", "Harry_Potter", true, LocalDate.of(2024, 2, 9));
-        Book_Model book2 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", true, LocalDate.of(2024, 2, 9));
-        Book_Model book3 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", true, LocalDate.of(2024, 2, 9));
-        Book_Model book4 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", true, LocalDate.of(2024, 2, 9));
-        Book_Model book5 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", true, LocalDate.of(2024, 2, 9));
-        Book_Model book6 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", true, LocalDate.of(2024, 2, 9));
-        Book_Model book7 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", true, LocalDate.of(2024, 2, 9));
-        Book_Model book8 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", true, LocalDate.of(2024, 2, 9));
-        Book_Model book9 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", true, LocalDate.of(2024, 2, 9));
-        Book_Model book10 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", true, LocalDate.of(2024, 2, 9));
-        Book_Model book11 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", true, LocalDate.of(2024, 2, 9));
-        Book_Model book12 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", true, LocalDate.of(2024, 2, 9));
+        Book_Model book1 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
+        Book_Model book2 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
+        Book_Model book3 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
+        Book_Model book4 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
+        Book_Model book5 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
+        Book_Model book6 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
+        Book_Model book7 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
+        Book_Model book8 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
+        Book_Model book9 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
+        Book_Model book10 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
+        Book_Model book11 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
+        Book_Model book12 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
        
         bookList.add(book1);
         bookList.add(book2);
@@ -49,6 +47,7 @@ public class Home extends javax.swing.JFrame {
         bookList.add(book9);
         bookList.add(book10);
         bookList.add(book11);
+        bookList.add(book12);
         
         BookContainer bookContainer = new BookContainer(bookList);
         
@@ -69,10 +68,10 @@ public class Home extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new Dimension(1080, 600));
+        setPreferredSize(new java.awt.Dimension(1080, 600));
         setResizable(false);
 
-        panelBorder1.setPreferredSize(new Dimension(1080, 60));
+        panelBorder1.setPreferredSize(new Dimension(1080, 600));
 
         mainPanel.setBackground(new java.awt.Color(255, 255, 255));
         mainPanel.setOpaque(false);
@@ -80,9 +79,8 @@ public class Home extends javax.swing.JFrame {
         jLabel1.setBackground(new java.awt.Color(27, 76, 140));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(27, 76, 140));
-        jLabel1.setText("All Books");
+        jLabel1.setText("My Favorites");
 
-        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setBorder(null);
         jScrollPane1.setOpaque(false);
 
@@ -112,13 +110,13 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(menu1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(frameHeader2, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
+                    .addComponent(frameHeader2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         panelBorder1Layout.setVerticalGroup(
-            panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(menu1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(panelBorder1Layout.createSequentialGroup()
+            panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(menu1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBorder1Layout.createSequentialGroup()
                 .addComponent(frameHeader2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -128,7 +126,7 @@ public class Home extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, 646, Short.MAX_VALUE)
+            .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, 1080, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,6 +137,7 @@ public class Home extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private components.UserFrameHeader frameHeader2;
     private javax.swing.JLabel jLabel1;

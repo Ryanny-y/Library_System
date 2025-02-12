@@ -1,8 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-package pages;
+package pages.User;
 
 import components.BookContainer;
 import java.awt.Color;
@@ -12,11 +8,11 @@ import java.util.ArrayList;
 import javax.swing.JScrollBar;
 import model.Book_Model;
 
-public class MyBooks extends javax.swing.JFrame {
+public class My_Books extends javax.swing.JFrame {
 
      ArrayList<Book_Model> bookList = new ArrayList<>();
      
-    public MyBooks() {
+    public My_Books() {
         initComponents();
         setBackground(new Color(0,0,0,0));
         menu1.initMoving(this);
@@ -29,19 +25,16 @@ public class MyBooks extends javax.swing.JFrame {
     }
     
     private void bookInit() {
-        
-        Book_Model book1 = new Book_Model(12, 2025, "Harry Potter", "Ryan Mabahin", "Harry_Potter", true, LocalDate.of(2024, 2, 9));
-        Book_Model book2 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", true, LocalDate.of(2024, 2, 9));
-        Book_Model book3 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", true, LocalDate.of(2024, 2, 9));
-        Book_Model book4 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", true, LocalDate.of(2024, 2, 9));
-        Book_Model book5 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", true, LocalDate.of(2024, 2, 9));
-        Book_Model book6 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", true, LocalDate.of(2024, 2, 9));
-        Book_Model book7 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", true, LocalDate.of(2024, 2, 9));
-        Book_Model book8 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", true, LocalDate.of(2024, 2, 9));
-        Book_Model book9 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", true, LocalDate.of(2024, 2, 9));
-        Book_Model book10 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", true, LocalDate.of(2024, 2, 9));
-        Book_Model book11 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", true, LocalDate.of(2024, 2, 9));
-        Book_Model book12 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", true, LocalDate.of(2024, 2, 9));
+        Book_Model book1 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
+        Book_Model book2 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
+        Book_Model book3 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
+        Book_Model book4 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
+        Book_Model book5 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
+        Book_Model book6 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
+        Book_Model book7 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
+        Book_Model book8 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
+        Book_Model book9 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
+        Book_Model book10 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
        
         bookList.add(book1);
         bookList.add(book2);
@@ -53,7 +46,6 @@ public class MyBooks extends javax.swing.JFrame {
         bookList.add(book8);
         bookList.add(book9);
         bookList.add(book10);
-        bookList.add(book11);
         
         BookContainer bookContainer = new BookContainer(bookList);
         
@@ -79,7 +71,6 @@ public class MyBooks extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new Dimension(1080, 600));
 
         panelBorder1.setPreferredSize(new Dimension(1080, 60));
 

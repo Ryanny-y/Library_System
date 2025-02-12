@@ -1,5 +1,5 @@
 
-package pages;
+package pages.Admin;
 
 import java.awt.Color;
 
@@ -21,7 +21,6 @@ public class Admin_Books extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1080, 600));
         setResizable(false);
 
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);

@@ -1,15 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
-/**
- *
- * @author Ryan
- */
+import java.time.LocalDateTime;
+
 public class User_Model {
     
-    public String role = "Admin";
+    private String student_id, first_name, last_name, email, password;
+//    private Enum role;
+    private double penalty;
+    private LocalDateTime created_at;
+    
+    public static String role = "User";
     
 }

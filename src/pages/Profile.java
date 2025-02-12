@@ -3,13 +3,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 import swing.AuthButton;
-import pages.Home;
+import model.User_Model;
 
 public class Profile extends javax.swing.JFrame implements ActionListener{
 
+    User_Model user = new User_Model();
+    
     public Profile() {
         initComponents();
         setBackground(new Color(0,0,0,0));
@@ -263,7 +263,13 @@ public class Profile extends javax.swing.JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == logoutBtn) {
             
-            System.out.println("dsa");
+            if(user.role == "Admin") {
+               System.out.println(user.role);
+               user.role = "User";
+            } else {
+                System.out.println(user.role);
+               user.role = "Admin";
+            }
             
             this.dispose();
             new Login();
