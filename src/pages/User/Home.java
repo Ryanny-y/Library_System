@@ -25,7 +25,7 @@ public class Home extends javax.swing.JFrame {
     public Home() {
         initComponents();
         setBackground(new Color(0,0,0,0));
-        menu1.initMoving(this);
+        menu2.initMoving(this);
         setVisible(true);
         
         JScrollBar vScroll = jScrollPane1.getVerticalScrollBar();
@@ -34,45 +34,13 @@ public class Home extends javax.swing.JFrame {
     }
     
     private void bookInit() {
-        User_Model user = Current_User.getCurrentUser();
-
-        ConnDB con = ConnDB.getInstance();
-        Connection c = con.getConnection();
-
-        ArrayList<Book_Model> bookList = new ArrayList<>();
         String query = "SELECT * FROM books";
-
-        try (PreparedStatement ps = c.prepareStatement(query);
-             ResultSet rs = ps.executeQuery()) {
-
-            while (rs.next()) {
-                int book_id = rs.getInt("book_id");
-                String title = rs.getString("title");
-                String author = rs.getString("author");
-                String overview = rs.getString("overview");
-                int year_published = rs.getInt("year_published");
-                String cover_img = rs.getString("cover_img");
-                String statusDB = rs.getString("status");
-                Book_Status status = Book_Status.valueOf(statusDB);
-
-                Timestamp b_time = rs.getTimestamp("borrowed_at");
-                LocalDateTime borrowed_at = (b_time != null) ? b_time.toLocalDateTime() : null;
-
-                Timestamp c_time = rs.getTimestamp("created_at");
-                LocalDateTime created_at = (c_time != null) ? c_time.toLocalDateTime() : null;
-
-                Book_Model book = new Book_Model(book_id, title, author, overview, year_published, cover_img, status, borrowed_at, created_at);
-
-                bookList.add(book);
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(Book_Model.class.getName()).log(Level.SEVERE, "Database error", ex);
-        }
+        Book_Model bookModel = new Book_Model();
+        bookModel.getBooks(query);
 
         // Ensure bookList is not empty before setting it in the container
-        if (!bookList.isEmpty()) {
-            BookContainer bookContainer = new BookContainer(bookList);
+        if (!Book_Model.bookLists.isEmpty()) {
+            BookContainer bookContainer = new BookContainer(Book_Model.bookLists);
             jScrollPane1.setViewportView(bookContainer);
         } else {
             Logger.getLogger(Book_Model.class.getName()).log(Level.WARNING, "No books retrieved from the database.");
@@ -85,11 +53,11 @@ public class Home extends javax.swing.JFrame {
     private void initComponents() {
 
         panelBorder1 = new swing.PanelBorder();
-        menu1 = new components.Menu();
         mainPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         userFrameHeader1 = new components.UserFrameHeader();
+        menu2 = new components.Menu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -119,22 +87,27 @@ public class Home extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 868, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1)))
+                    .addGroup(mainPanelLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
+
+        menu2.setMinimumSize(new java.awt.Dimension(230, 96));
 
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);
         panelBorder1Layout.setHorizontalGroup(
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBorder1Layout.createSequentialGroup()
-                .addComponent(menu1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(menu2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -142,12 +115,12 @@ public class Home extends javax.swing.JFrame {
         );
         panelBorder1Layout.setVerticalGroup(
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(menu1, javax.swing.GroupLayout.DEFAULT_SIZE, 676, Short.MAX_VALUE)
             .addGroup(panelBorder1Layout.createSequentialGroup()
                 .addComponent(userFrameHeader1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(menu2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -158,7 +131,7 @@ public class Home extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, 676, Short.MAX_VALUE)
+            .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, 676, Short.MAX_VALUE)
         );
 
         pack();
@@ -169,7 +142,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel mainPanel;
-    private components.Menu menu1;
+    private components.Menu menu2;
     private swing.PanelBorder panelBorder1;
     private components.UserFrameHeader userFrameHeader1;
     // End of variables declaration//GEN-END:variables

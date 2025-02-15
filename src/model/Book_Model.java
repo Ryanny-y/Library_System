@@ -77,6 +77,51 @@ public class Book_Model {
     private String title, author, cover_img, overview;
     private Book_Status status;
     private LocalDateTime borrowed_at, created_at;
+    public static ArrayList<Book_Model> bookLists = new ArrayList<>();
+    private ArrayList<Book_Model> origList = new ArrayList<>();
+    
+    
+    
+    public void filterList(String search) {
+        System.out.println(search);
+    }
+    
+    public void getBooks(String query) {
+        ConnDB con = ConnDB.getInstance();
+        Connection c = con.getConnection();
+
+        try (PreparedStatement ps = c.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                int book_id = rs.getInt("book_id");
+                String title = rs.getString("title");
+                String author = rs.getString("author");
+                String overview = rs.getString("overview");
+                int year_published = rs.getInt("year_published");
+                String cover_img = rs.getString("cover_img");
+                String statusDB = rs.getString("status");
+                Book_Status status = Book_Status.valueOf(statusDB);
+
+                Timestamp b_time = rs.getTimestamp("borrowed_at");
+                LocalDateTime borrowed_at = (b_time != null) ? b_time.toLocalDateTime() : null;
+
+                Timestamp c_time = rs.getTimestamp("created_at");
+                LocalDateTime created_at = (c_time != null) ? c_time.toLocalDateTime() : null;
+
+                Book_Model book = new Book_Model(book_id, title, author, overview, year_published, cover_img, status, borrowed_at, created_at);
+
+                origList.add(book);
+            }
+            
+            bookLists.addAll(origList);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Book_Model.class.getName()).log(Level.SEVERE, "Database error", ex);
+        }
+        
+    }
+    
     
     public Icon toIcon(JLabel lbl, Book_Model book) {
         ImageIcon imageIcon = new ImageIcon(getClass().getResource("/images/Books/" + book.getCover_img() + ".jpg"));
@@ -104,6 +149,8 @@ public class Book_Model {
          return new ImageIcon(resizedImage);
     }
     
+    
+    
     public Book_Model(int id, String title, String author, String overview, int year_published, String cover_img,  Book_Status status, LocalDateTime borrowed_at, LocalDateTime created_at) {
         this.id = id; 
         this.year_published= year_published;
@@ -114,5 +161,9 @@ public class Book_Model {
         this.status = status;
         this.borrowed_at = (borrowed_at != null) ? borrowed_at : null;  // Safe handling of null
         this.created_at = (created_at != null) ? created_at : null;
+    }
+    
+    public Book_Model() {
+        
     }
 }

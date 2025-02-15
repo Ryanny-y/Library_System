@@ -3,16 +3,27 @@ package components;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import model.Book_Model;
 
 public class UserFrameHeader extends javax.swing.JPanel implements ActionListener {
 
-    
+    Book_Model bookModel = new Book_Model();
+
     public UserFrameHeader() {
         initComponents();
         setOpaque(false);
         lblName.setText("Ryan");
         search_btn.setBackground(new Color(0,0,0,0));
         search_btn.addActionListener(this);
+
+        search_field.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {  // Use keyReleased instead of keyPressed
+                bookModel.filterList(search_field.getText().trim()); // Trim spaces to avoid errors
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
