@@ -12,9 +12,21 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 import swing.AuthButton;
 import pages.*;
+import config.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import java.util.Arrays;
 
 public class SignupForm extends javax.swing.JPanel implements ActionListener{
 
+    private ConnDB con = ConnDB.getInstance();
+    private Connection c = con.getConnection();
+    
     public SignupForm() {
         initComponents();
         
@@ -32,7 +44,7 @@ public class SignupForm extends javax.swing.JPanel implements ActionListener{
         password_field.setEchoChar((char) 0);
         passwordListener(password_field, "Enter Your Password");
         confirm_field.setEchoChar((char) 0);
-        passwordListener(confirm_field, "Confirrm Your Password");
+        passwordListener(confirm_field, "Confirm Your Password");
     }
     
     @SuppressWarnings("unchecked")
@@ -327,39 +339,73 @@ public class SignupForm extends javax.swing.JPanel implements ActionListener{
         });
     }
     
-    private void passwordListener(JTextField field, String text) {
+    private void passwordListener(JPasswordField field, String text) {
         field.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                String pass = String.valueOf(password_field.getPassword()).trim();
+                String pass = String.valueOf(field.getPassword()).trim();
 
                 if (pass.equals(text)) {
-                    password_field.setText(""); // Clear placeholder
-                    password_field.setForeground(Color.BLACK);
-                    password_field.setEchoChar('*'); // Enable password masking
+                    field.setText(""); // Clear placeholder
+                    field.setForeground(Color.BLACK);
+                    field.setEchoChar('*'); // Enable password masking
                 }
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-                String pass = String.valueOf(password_field.getPassword()).trim();
+                String pass = String.valueOf(field.getPassword()).trim();
 
                 if (pass.isEmpty()) {
-                    password_field.setText(text);
-                    password_field.setForeground(Color.GRAY);
-                    password_field.setEchoChar((char) 0);
+                    field.setText(text);
+                    field.setForeground(Color.GRAY);
+                    field.setEchoChar((char) 0);
                 }
             }
         });
     }
 
+    private void validateFields() {
+        if( id_field.getText().equalsIgnoreCase("Enter Your Student ID")
+            || firstname_field.getText().equalsIgnoreCase("Enter Your First Name")
+            || lastname_field.getText().equalsIgnoreCase("Enter Your Last Name")
+            || email_field.getText().equalsIgnoreCase("Enter Your Email")
+            || String.valueOf(password_field.getPassword()).equalsIgnoreCase("Enter Your Password")
+          ) {
+            JOptionPane.showMessageDialog(null, "All Fieds are required!", "Invalid Data", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (!Arrays.equals(password_field.getPassword(), confirm_field.getPassword())) {
+            JOptionPane.showMessageDialog(null, "Password do not match. Please try again", "Password mismatch", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
        if(e.getSource() == signup_btn) {
            JFrame topFrame = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
            if(topFrame != null) {
-               topFrame.dispose();
-               new Login();
+               
+               validateFields();
+               String query = "INSERT INTO users (student_id, first_name, last_name, email, password) VALUES (?, ?, ?, ?, ?)";
+               try {
+                   PreparedStatement ps = c.prepareStatement(query);
+                   ps.setString(1, id_field.getText());
+                   ps.setString(2, firstname_field.getText());
+                   ps.setString(3, lastname_field.getText());
+                   ps.setString(4, email_field.getText());
+                   ps.setString(5, String.valueOf(password_field.getPassword()));
+                   ps.executeUpdate();
+                   
+                   JOptionPane.showMessageDialog(null, "Sign Up Successfull", "Sign Up Successfull", JOptionPane.PLAIN_MESSAGE);
+                   topFrame.dispose();
+                   new Login();
+                   ps.close();
+               } catch (SQLException ex) {
+                   Logger.getLogger(SignupForm.class.getName()).log(Level.SEVERE, null, ex);
+               }
+               
+               
            }
        }
     }

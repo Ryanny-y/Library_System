@@ -11,7 +11,7 @@ public class ConnDB {
     private static final String USERNAME = "root";
     private static final String PASSWORD = "Ryanny1003";
 
-    private static ConnDB instance;  // Singleton instance
+    private static ConnDB instance;
     private Connection connection;
 
     // Private constructor to prevent multiple instances
@@ -24,20 +24,17 @@ public class ConnDB {
         }
     }
 
-    // Public method to get the singleton instance
     public static ConnDB getInstance() {
         if (instance == null) {
-            instance = new ConnDB(); // Create instance if not exists
+            instance = new ConnDB(); 
         }
         return instance;
     }
 
-    // Get database connection
     public Connection getConnection() {
         return connection;
     }
 
-    // Close connection method
     public void closeConnection() {
         try {
             if (connection != null && !connection.isClosed()) {

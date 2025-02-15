@@ -274,9 +274,8 @@ public class LoginForm extends javax.swing.JPanel implements ActionListener {
             
             JFrame topFrame = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
             if (topFrame != null) {
-                topFrame.dispose(); // Close the frame 
+                
                 try {
-                    
                     String query = "SELECT * FROM users WHERE email = ? AND password = ?";
                     PreparedStatement ps = c.prepareStatement(query);
                     ps.setString(1, email);
@@ -296,16 +295,19 @@ public class LoginForm extends javax.swing.JPanel implements ActionListener {
                         
                         user = new User_Model(student_id, first_name, last_name, email, password, role, penalty, joined_at);
                         Current_User.setCurrentUser(user);
-                        System.out.println(role);
                     }
                     
                     if(user.getRole() == User_Role.USER) {
                         new Home();
+                        topFrame.dispose();
                     } else if(user.getRole() == User_Role.ADMIN) {
                         new Admin_Dashboard();
+                        topFrame.dispose();
                     } else {
                         new Home();
+                        topFrame.dispose();
                     }
+                    ps.close();
                 } catch (SQLException ex) {
                     Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (NullPointerException ex1) {
