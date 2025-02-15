@@ -2,22 +2,25 @@ package model;
 
 import java.awt.Image;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import java.util.ArrayList;
+import config.ConnDB;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
 
 public class Book_Model {
-
-    /**
-     * @return the overview
-     */
     public String getOverview() {
         return overview;
     }
 
-    /**
-     * @param overview the overview to set
-     */
     public void setOverview(String overview) {
         this.overview = overview;
     }
@@ -61,32 +64,19 @@ public class Book_Model {
     public void setAuthor(String author) {
         this.author = author;
     }
-
-    public boolean isIsAvailable() {
-        return isAvailable;
-    }
-
-    public void setIsAvailable(boolean isAvailable) {
-        this.isAvailable = isAvailable;
-    }
     
-    public LocalDate getBorrowed_date() {
+    public LocalDateTime getBorrowed_date() {
         return borrowed_date;
     }
     
-    public void setBorrowed_date(LocalDate borrowed_date) {
+    public void setBorrowed_date(LocalDateTime borrowed_date) {
         this.borrowed_date = borrowed_date;
     }
 
     private int id, year_published;
     private String title, author, cover_img, overview;
-    private boolean isAvailable; // status
     private Book_Status status;
-    private LocalDate borrowed_date, created_at;
-    
-    public enum Book_Status {
-        AVAILABLE, RESERVED
-    }
+    private LocalDateTime borrowed_date, created_at;
     
     public Icon toIcon(JLabel lbl, Book_Model book) {
         ImageIcon imageIcon = new ImageIcon(getClass().getResource("/images/Books/" + book.getCover_img() + ".jpg"));
@@ -114,14 +104,15 @@ public class Book_Model {
          return new ImageIcon(resizedImage);
     }
     
-    public Book_Model(int id, int year_published, String title, String author, String cover_img, String overview, boolean isAvailable, LocalDate borrowed_date) {
+    public Book_Model(int id, String title, String author, String overview, int year_published, String cover_img,  Book_Status status, LocalDateTime borrowed_date, LocalDateTime created_at) {
         this.id = id; 
         this.year_published= year_published;
         this.title = title;
         this.author = author;
         this.cover_img = cover_img;
         this.overview = overview;
-        this.isAvailable = isAvailable;
+        this.status = status;
         this.borrowed_date = borrowed_date;
+        this.created_at = created_at;
     }
 }

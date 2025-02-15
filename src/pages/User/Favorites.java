@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.JScrollBar;
 import model.Book_Model;
+import model.Book_Status;
 
 public class Favorites extends javax.swing.JFrame {
     public Favorites() {
@@ -19,35 +20,12 @@ public class Favorites extends javax.swing.JFrame {
         bookInit();
     }
     
-    ArrayList<Book_Model> bookList = new ArrayList<>();
+    ArrayList<Book_Model> bookList;
     
     private void bookInit() {
-        
-        Book_Model book1 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
-        Book_Model book2 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
-        Book_Model book3 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
-        Book_Model book4 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
-        Book_Model book5 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
-        Book_Model book6 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
-        Book_Model book7 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
-        Book_Model book8 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
-        Book_Model book9 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
-        Book_Model book10 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
-        Book_Model book11 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
-        Book_Model book12 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
-       
-        bookList.add(book1);
-        bookList.add(book2);
-        bookList.add(book3);
-        bookList.add(book4);
-        bookList.add(book5);
-        bookList.add(book6);
-        bookList.add(book7);
-        bookList.add(book8);
-        bookList.add(book9);
-        bookList.add(book10);
-        bookList.add(book11);
-        bookList.add(book12);
+//        String query = "SELECT * FROM books";
+//        bookList = Book_Model.getBooks(query);
+//       
         
         BookContainer bookContainer = new BookContainer(bookList);
         

@@ -5,8 +5,20 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import model.Book_Model;
 import components.BookContainer;
+import config.ConnDB;
 import java.awt.Dimension;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JScrollBar;
+import model.Book_Status;
+import model.Current_User;
+import model.User_Model;
 
 public class Home extends javax.swing.JFrame {
 
@@ -24,31 +36,39 @@ public class Home extends javax.swing.JFrame {
     }
     
     private void bookInit() {
+        User_Model user = Current_User.getCurrentUser();
+        System.out.println(user.getFirst_name());
         
-        Book_Model book1 = new Book_Model(12, 2025, "Harry Potter", "Ryan Mabahin", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
-        Book_Model book2 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
-        Book_Model book3 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
-        Book_Model book4 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
-        Book_Model book5 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
-        Book_Model book6 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
-        Book_Model book7 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
-        Book_Model book8 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
-        Book_Model book9 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
-        Book_Model book10 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
-        Book_Model book11 = new Book_Model(12, 2025, "Harry Potter", "Ryan", "Harry_Potter", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", true, LocalDate.of(2024, 2, 9));
-        
-        
-        bookList.add(book1);
-        bookList.add(book2);
-        bookList.add(book3);
-        bookList.add(book4);
-        bookList.add(book5);
-        bookList.add(book6);
-        bookList.add(book7);
-        bookList.add(book8);
-        bookList.add(book9);
-        bookList.add(book10);
-        bookList.add(book11);
+        ConnDB con = ConnDB.getInstance();
+        System.out.println(con);
+        Connection c = con.getConnection();
+        String query = "SELECT * FROM books";
+        try {
+            PreparedStatement ps = c.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()) {
+                int book_id = rs.getInt("book_id");
+                String title = rs.getString("title");
+                String author = rs.getString("author");
+                String overview = rs.getString("overview");
+                int year_published = rs.getInt("year_published");
+                String cover_img = rs.getString("cover_img");
+                String statusDB = rs.getString("status");
+                Book_Status status = Book_Status.valueOf(statusDB);
+                Timestamp b_time = rs.getTimestamp("borrowed_at");
+                LocalDateTime borrowed_at = b_time.toLocalDateTime();
+                Timestamp c_time = rs.getTimestamp("created_at");
+                LocalDateTime created_at = c_time.toLocalDateTime();
+                
+                Book_Model book = new Book_Model(book_id, title, author, overview, year_published, cover_img, status, borrowed_at, created_at);
+                bookList.add(book);
+                System.out.println(rs);
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Book_Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         BookContainer bookContainer = new BookContainer(bookList);
         

@@ -33,7 +33,6 @@ public class LoginForm extends javax.swing.JPanel implements ActionListener {
     private ConnDB db = ConnDB.getInstance();
     private Connection c = db.getConnection();
     
-    
     public LoginForm() {
         initComponents();
         setOpaque(false);
