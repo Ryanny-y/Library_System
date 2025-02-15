@@ -16,8 +16,7 @@ import pages.*;
 
 public class NavParentPanel extends javax.swing.JPanel {
 
-    private User_Model user = new User_Model();
-    
+    private User_Model user = Current_User.getCurrentUser();
     
     public NavParentPanel() {
         initComponents();
@@ -27,12 +26,15 @@ public class NavParentPanel extends javax.swing.JPanel {
     }
     
     private void init() {
-        if(user.role == "User") {
-            userNav();
-        } else if (user.role == "Admin") {
-            adminNav();
+        if(user != null) {
+            if(user.getRole() == User_Role.USER) {
+                userNav();
+            } else if (user.getRole() == User_Role.ADMIN) {
+                adminNav();
+            }
+        } else {
+            System.out.println("User is null, cannot retrieve role.");
         }
-       
     }
     
     private void userNav() {

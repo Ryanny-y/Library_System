@@ -1,5 +1,6 @@
 package components;
 
+import config.ConnDB;
 import pages.Admin.Admin_Dashboard;
 import pages.User.Home;
 import java.awt.Color;
@@ -10,16 +11,28 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
-import model.User_Model;
+import model.*;
 import pages.*;
 import swing.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.sql.ResultSet;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.time.LocalDateTime;
+import java.sql.Timestamp;
+import javax.swing.JOptionPane;
 
 public class LoginForm extends javax.swing.JPanel implements ActionListener {
 
     private String email, password;
-    private User_Model user = new User_Model();
+    private User_Model user;
+    private ConnDB db = ConnDB.getInstance();
+    private Connection c = db.getConnection();
+    
     
     public LoginForm() {
         initComponents();
@@ -254,7 +267,6 @@ public class LoginForm extends javax.swing.JPanel implements ActionListener {
             if(email_field.getText().equalsIgnoreCase("Enter Your Email") || String.valueOf(password_field.getPassword()).equalsIgnoreCase("Enter Your Password")) {
                 this.email = "";
                 this.password = "";
-                
             } else {
                 this.email = email_field.getText();
                 this.password = String.valueOf(password_field.getPassword());
@@ -263,13 +275,43 @@ public class LoginForm extends javax.swing.JPanel implements ActionListener {
             JFrame topFrame = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
             if (topFrame != null) {
                 topFrame.dispose(); // Close the frame 
-                if(user.role == "User") {
-                    new Home();
-                } else if(user.role == "Admin") {
-                    new Admin_Dashboard();
-                } else {
-                    new Home();
+                try {
+                    
+                    String query = "SELECT * FROM users WHERE email = ? AND password = ?";
+                    PreparedStatement ps = c.prepareStatement(query);
+                    ps.setString(1, email);
+                    ps.setString(2, password);
+                    ResultSet rs = ps.executeQuery();
+                    
+                    while(rs.next()) {
+                        String student_id = rs.getString("student_id");
+                        String first_name = rs.getString("first_name");
+                        String last_name = rs.getString("last_name");
+                        String email = rs.getString("email");
+                        String password = rs.getString("password");
+                        String role = rs.getString("role");
+                        double penalty = rs.getDouble("penalty");
+                        Timestamp timestamp = rs.getTimestamp("joined_at");
+                        LocalDateTime joined_at = timestamp.toLocalDateTime();
+                        
+                        user = new User_Model(student_id, first_name, last_name, email, password, role, penalty, joined_at);
+                        Current_User.setCurrentUser(user);
+                        System.out.println(role);
+                    }
+                    
+                    if(user.getRole() == User_Role.USER) {
+                        new Home();
+                    } else if(user.getRole() == User_Role.ADMIN) {
+                        new Admin_Dashboard();
+                    } else {
+                        new Home();
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (NullPointerException ex1) {
+                    JOptionPane.showMessageDialog(null, "User " + email + " not found.", "User Not Found", JOptionPane.ERROR_MESSAGE);
                 }
+                   
             }
         }
     }

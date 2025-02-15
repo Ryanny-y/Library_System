@@ -80,9 +80,13 @@ public class Book_Model {
 
     private int id, year_published;
     private String title, author, cover_img, overview;
-    private boolean isAvailable;
+    private boolean isAvailable; // status
+    private Book_Status status;
     private LocalDate borrowed_date, created_at;
     
+    public enum Book_Status {
+        AVAILABLE, RESERVED
+    }
     
     public Icon toIcon(JLabel lbl, Book_Model book) {
         ImageIcon imageIcon = new ImageIcon(getClass().getResource("/images/Books/" + book.getCover_img() + ".jpg"));
@@ -109,7 +113,6 @@ public class Book_Model {
 
          return new ImageIcon(resizedImage);
     }
-    
     
     public Book_Model(int id, int year_published, String title, String author, String cover_img, String overview, boolean isAvailable, LocalDate borrowed_date) {
         this.id = id; 

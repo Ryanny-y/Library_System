@@ -3,17 +3,18 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import model.Current_User;
 import swing.AuthButton;
 import model.User_Model;
 
 public class Profile extends javax.swing.JFrame implements ActionListener{
 
-    User_Model user = new User_Model();
+    User_Model user = Current_User.getCurrentUser();
     
     public Profile() {
         initComponents();
         setBackground(new Color(0,0,0,0));
-        menu1.initMoving(this);
+//        menu1.initMoving(this);
         logoutBtn.addActionListener(this);
         setVisible(true);
         
@@ -262,14 +263,7 @@ public class Profile extends javax.swing.JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == logoutBtn) {
-            
-            if(user.role == "Admin") {
-               System.out.println(user.role);
-               user.role = "User";
-            } else {
-                System.out.println(user.role);
-               user.role = "Admin";
-            }
+            Current_User.setCurrentUser(null);
             
             this.dispose();
             new Login();
