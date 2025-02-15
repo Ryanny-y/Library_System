@@ -65,18 +65,18 @@ public class Book_Model {
         this.author = author;
     }
     
-    public LocalDateTime getBorrowed_date() {
-        return borrowed_date;
+    public LocalDateTime getborrowed_at() {
+        return borrowed_at;
     }
     
-    public void setBorrowed_date(LocalDateTime borrowed_date) {
-        this.borrowed_date = borrowed_date;
+    public void setborrowed_at(LocalDateTime borrowed_at) {
+        this.borrowed_at = borrowed_at;
     }
 
     private int id, year_published;
     private String title, author, cover_img, overview;
     private Book_Status status;
-    private LocalDateTime borrowed_date, created_at;
+    private LocalDateTime borrowed_at, created_at;
     
     public Icon toIcon(JLabel lbl, Book_Model book) {
         ImageIcon imageIcon = new ImageIcon(getClass().getResource("/images/Books/" + book.getCover_img() + ".jpg"));
@@ -104,7 +104,7 @@ public class Book_Model {
          return new ImageIcon(resizedImage);
     }
     
-    public Book_Model(int id, String title, String author, String overview, int year_published, String cover_img,  Book_Status status, LocalDateTime borrowed_date, LocalDateTime created_at) {
+    public Book_Model(int id, String title, String author, String overview, int year_published, String cover_img,  Book_Status status, LocalDateTime borrowed_at, LocalDateTime created_at) {
         this.id = id; 
         this.year_published= year_published;
         this.title = title;
@@ -112,7 +112,7 @@ public class Book_Model {
         this.cover_img = cover_img;
         this.overview = overview;
         this.status = status;
-        this.borrowed_date = borrowed_date;
-        this.created_at = created_at;
+        this.borrowed_at = (borrowed_at != null) ? borrowed_at : null;  // Safe handling of null
+        this.created_at = (created_at != null) ? created_at : null;
     }
 }

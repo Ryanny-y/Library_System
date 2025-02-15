@@ -365,7 +365,7 @@ public class SignupForm extends javax.swing.JPanel implements ActionListener{
         });
     }
 
-    private void validateFields() {
+    private boolean validateFields() {
         if( id_field.getText().equalsIgnoreCase("Enter Your Student ID")
             || firstname_field.getText().equalsIgnoreCase("Enter Your First Name")
             || lastname_field.getText().equalsIgnoreCase("Enter Your Last Name")
@@ -373,11 +373,12 @@ public class SignupForm extends javax.swing.JPanel implements ActionListener{
             || String.valueOf(password_field.getPassword()).equalsIgnoreCase("Enter Your Password")
           ) {
             JOptionPane.showMessageDialog(null, "All Fieds are required!", "Invalid Data", JOptionPane.ERROR_MESSAGE);
-            return;
+            return true;
         } else if (!Arrays.equals(password_field.getPassword(), confirm_field.getPassword())) {
             JOptionPane.showMessageDialog(null, "Password do not match. Please try again", "Password mismatch", JOptionPane.ERROR_MESSAGE);
-            return;
+            return true;
         }
+        return false;
     }
     
     @Override

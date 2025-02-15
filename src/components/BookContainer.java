@@ -1,9 +1,7 @@
 package components;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.ArrayList;
 import javax.swing.JPanel;
@@ -12,12 +10,17 @@ import swing.Book_Card;
 
 public class BookContainer extends javax.swing.JPanel {
 
-    private ArrayList<Book_Model> bookList;
+    private ArrayList<Book_Model> bookList = new ArrayList<>();
     
-    public BookContainer(ArrayList bookList) {
+    public BookContainer(ArrayList<Book_Model> bookList) {
         initComponents();
-        this.bookList = bookList;
+        this.bookList = (bookList != null) ? bookList : new ArrayList<>();
         addComponents();
+        setBackground(new Color(0,0,0,0));
+    }
+    
+    public BookContainer() {
+        initComponents();
         setBackground(new Color(0,0,0,0));
     }
     

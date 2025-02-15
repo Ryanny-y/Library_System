@@ -262,8 +262,8 @@ public class LoginForm extends javax.swing.JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == LoginBtn) {
-            // Your logic for when the Login button is clicked
-            if(email_field.getText().equalsIgnoreCase("Enter Your Email") || String.valueOf(password_field.getPassword()).equalsIgnoreCase("Enter Your Password")) {
+            if (email_field.getText().equalsIgnoreCase("Enter Your Email") || 
+                String.valueOf(password_field.getPassword()).equalsIgnoreCase("Enter Your Password")) {
                 this.email = "";
                 this.password = "";
             } else {
@@ -273,15 +273,13 @@ public class LoginForm extends javax.swing.JPanel implements ActionListener {
             
             JFrame topFrame = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
             if (topFrame != null) {
-                
-                try {
-                    String query = "SELECT * FROM users WHERE email = ? AND password = ?";
-                    PreparedStatement ps = c.prepareStatement(query);
+                try (Connection c = db.getConnection();
+                     PreparedStatement ps = c.prepareStatement("SELECT * FROM users WHERE email = ? AND password = ?")) {
                     ps.setString(1, email);
                     ps.setString(2, password);
                     ResultSet rs = ps.executeQuery();
                     
-                    while(rs.next()) {
+                    if (rs.next()) {
                         String student_id = rs.getString("student_id");
                         String first_name = rs.getString("first_name");
                         String last_name = rs.getString("last_name");
@@ -294,25 +292,23 @@ public class LoginForm extends javax.swing.JPanel implements ActionListener {
                         
                         user = new User_Model(student_id, first_name, last_name, email, password, role, penalty, joined_at);
                         Current_User.setCurrentUser(user);
-                    }
-                    
-                    if(user.getRole() == User_Role.USER) {
-                        new Home();
-                        topFrame.dispose();
-                    } else if(user.getRole() == User_Role.ADMIN) {
-                        new Admin_Dashboard();
-                        topFrame.dispose();
+                        
+                        if (user.getRole() == User_Role.USER) {
+                            new Home();
+                            topFrame.dispose();
+                        } else if (user.getRole() == User_Role.ADMIN) {
+                            new Admin_Dashboard();
+                            topFrame.dispose();
+                        } else {
+                            new Home();
+                            topFrame.dispose();
+                        }
                     } else {
-                        new Home();
-                        topFrame.dispose();
+                        JOptionPane.showMessageDialog(null, "User " + email + " not found.", "User Not Found", JOptionPane.ERROR_MESSAGE);
                     }
-                    ps.close();
                 } catch (SQLException ex) {
                     Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (NullPointerException ex1) {
-                    JOptionPane.showMessageDialog(null, "User " + email + " not found.", "User Not Found", JOptionPane.ERROR_MESSAGE);
                 }
-                   
             }
         }
     }

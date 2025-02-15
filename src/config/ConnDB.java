@@ -16,6 +16,11 @@ public class ConnDB {
 
     // Private constructor to prevent multiple instances
     private ConnDB() {
+        connect();
+    }
+
+    // Method to establish the connection
+    private void connect() {
         try {
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             System.out.println("Database Connected!");
@@ -26,12 +31,20 @@ public class ConnDB {
 
     public static ConnDB getInstance() {
         if (instance == null) {
-            instance = new ConnDB(); 
+            instance = new ConnDB();
         }
         return instance;
     }
 
     public Connection getConnection() {
+        try {
+            if (connection == null || connection.isClosed()) {
+                System.out.println("Reconnecting to the database...");
+                connect();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ConnDB.class.getName()).log(Level.SEVERE, "Error checking connection status", ex);
+        }
         return connection;
     }
 
@@ -40,10 +53,11 @@ public class ConnDB {
             if (connection != null && !connection.isClosed()) {
                 connection.close();
                 System.out.println("Database Connection Closed.");
-                instance = null; // Reset instance after closing
             }
         } catch (SQLException ex) {
             Logger.getLogger(ConnDB.class.getName()).log(Level.SEVERE, "Failed to close connection", ex);
+        } finally {
+            instance = null; // Reset instance after closing
         }
     }
 }

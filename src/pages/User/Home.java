@@ -21,8 +21,6 @@ import model.Current_User;
 import model.User_Model;
 
 public class Home extends javax.swing.JFrame {
-
-    ArrayList<Book_Model> bookList = new ArrayList<>();
     
     public Home() {
         initComponents();
@@ -37,17 +35,17 @@ public class Home extends javax.swing.JFrame {
     
     private void bookInit() {
         User_Model user = Current_User.getCurrentUser();
-        System.out.println(user.getFirst_name());
-        
+
         ConnDB con = ConnDB.getInstance();
-        System.out.println(con);
         Connection c = con.getConnection();
+
+        ArrayList<Book_Model> bookList = new ArrayList<>();
         String query = "SELECT * FROM books";
-        try {
-            PreparedStatement ps = c.prepareStatement(query);
-            ResultSet rs = ps.executeQuery();
-            
-            while(rs.next()) {
+
+        try (PreparedStatement ps = c.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
                 int book_id = rs.getInt("book_id");
                 String title = rs.getString("title");
                 String author = rs.getString("author");
@@ -56,25 +54,31 @@ public class Home extends javax.swing.JFrame {
                 String cover_img = rs.getString("cover_img");
                 String statusDB = rs.getString("status");
                 Book_Status status = Book_Status.valueOf(statusDB);
-                Timestamp b_time = rs.getTimestamp("borrowed_at");
-                LocalDateTime borrowed_at = b_time.toLocalDateTime();
-                Timestamp c_time = rs.getTimestamp("created_at");
-                LocalDateTime created_at = c_time.toLocalDateTime();
-                
-                Book_Model book = new Book_Model(book_id, title, author, overview, year_published, cover_img, status, borrowed_at, created_at);
-                bookList.add(book);
-                System.out.println(rs);
 
+                Timestamp b_time = rs.getTimestamp("borrowed_at");
+                LocalDateTime borrowed_at = (b_time != null) ? b_time.toLocalDateTime() : null;
+
+                Timestamp c_time = rs.getTimestamp("created_at");
+                LocalDateTime created_at = (c_time != null) ? c_time.toLocalDateTime() : null;
+
+                Book_Model book = new Book_Model(book_id, title, author, overview, year_published, cover_img, status, borrowed_at, created_at);
+
+                bookList.add(book);
             }
+
         } catch (SQLException ex) {
-            Logger.getLogger(Book_Model.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Book_Model.class.getName()).log(Level.SEVERE, "Database error", ex);
         }
-        
-        BookContainer bookContainer = new BookContainer(bookList);
-        
-        
-        jScrollPane1.setViewportView(bookContainer);
+
+        // Ensure bookList is not empty before setting it in the container
+        if (!bookList.isEmpty()) {
+            BookContainer bookContainer = new BookContainer(bookList);
+            jScrollPane1.setViewportView(bookContainer);
+        } else {
+            Logger.getLogger(Book_Model.class.getName()).log(Level.WARNING, "No books retrieved from the database.");
+        }
     }
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
