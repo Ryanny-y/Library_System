@@ -33,12 +33,12 @@ public class Book_Model {
         this.cover_img = cover_img;
     }
 
-    public int getId() {
-        return id;
+    public int getBook_id() {
+        return book_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setBook_id(int book_d) {
+        this.book_id= book_id;
     }
 
     public int getYear_published() {
@@ -65,18 +65,11 @@ public class Book_Model {
         this.author = author;
     }
     
-    public LocalDateTime getborrowed_at() {
-        return borrowed_at;
-    }
-    
-    public void setborrowed_at(LocalDateTime borrowed_at) {
-        this.borrowed_at = borrowed_at;
-    }
 
-    private int id, year_published;
+    private int book_id, year_published;
     private String title, author, cover_img, overview;
     private Book_Status status;
-    private LocalDateTime borrowed_at, created_at;
+    private LocalDateTime created_at;
     public static ArrayList<Book_Model> bookLists = new ArrayList<>();
     private ArrayList<Book_Model> origList = new ArrayList<>();
     
@@ -103,13 +96,10 @@ public class Book_Model {
                 String statusDB = rs.getString("status");
                 Book_Status status = Book_Status.valueOf(statusDB);
 
-                Timestamp b_time = rs.getTimestamp("borrowed_at");
-                LocalDateTime borrowed_at = (b_time != null) ? b_time.toLocalDateTime() : null;
-
                 Timestamp c_time = rs.getTimestamp("created_at");
                 LocalDateTime created_at = (c_time != null) ? c_time.toLocalDateTime() : null;
 
-                Book_Model book = new Book_Model(book_id, title, author, overview, year_published, cover_img, status, borrowed_at, created_at);
+                Book_Model book = new Book_Model(book_id, title, author, overview, year_published, cover_img, status, created_at);
 
                 origList.add(book);
             }
@@ -151,15 +141,14 @@ public class Book_Model {
     
     
     
-    public Book_Model(int id, String title, String author, String overview, int year_published, String cover_img,  Book_Status status, LocalDateTime borrowed_at, LocalDateTime created_at) {
-        this.id = id; 
+    public Book_Model(int book_id, String title, String author, String overview, int year_published, String cover_img,  Book_Status status, LocalDateTime created_at) {
+        this.book_id = book_id; 
         this.year_published= year_published;
         this.title = title;
         this.author = author;
         this.cover_img = cover_img;
         this.overview = overview;
         this.status = status;
-        this.borrowed_at = (borrowed_at != null) ? borrowed_at : null;  // Safe handling of null
         this.created_at = (created_at != null) ? created_at : null;
     }
     

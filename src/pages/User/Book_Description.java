@@ -1,16 +1,32 @@
 package pages.User;
 
+import config.ConnDB;
 import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import model.Book_Model;
+import java.sql.PreparedStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.Current_User;
 
 public class Book_Description extends javax.swing.JFrame {
 
+    Book_Model book;
+    ConnDB con = ConnDB.getInstance();
+    Connection c = con.getConnection();
+    String student_id = Current_User.getCurrentUser().getStudent_id();
+    
+    
     public Book_Description(Book_Model book) {
         initComponents();
         setVisible(true);
+        this.book = book;
         book_title.setText(book.getTitle());
         book_overview.setText("<html>" + book.getOverview() + "</html>");
         book_author.setText(book.getAuthor());
@@ -34,15 +50,17 @@ public class Book_Description extends javax.swing.JFrame {
         book_author = new javax.swing.JLabel();
         lblTitle3 = new javax.swing.JLabel();
         book_released = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        borrow_btn = new javax.swing.JButton();
+        favorite_btn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
 
-        close_btn.setText("X");
+        close_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/close.png"))); // NOI18N
         close_btn.setBorder(null);
+        close_btn.setBorderPainted(false);
+        close_btn.setContentAreaFilled(false);
         close_btn.setFocusable(false);
         close_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,17 +96,30 @@ public class Book_Description extends javax.swing.JFrame {
 
         book_released.setText("2024");
 
-        jButton2.setText("Borrow Book");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        borrow_btn.setBackground(new java.awt.Color(27, 76, 140));
+        borrow_btn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        borrow_btn.setForeground(new java.awt.Color(255, 255, 255));
+        borrow_btn.setText("Borrow Book");
+        borrow_btn.setBorder(null);
+        borrow_btn.setBorderPainted(false);
+        borrow_btn.setFocusPainted(false);
+        borrow_btn.setFocusable(false);
+        borrow_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                borrow_btnActionPerformed(evt);
             }
         });
 
-        jButton3.setText("<3");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        favorite_btn.setBackground(new java.awt.Color(204, 204, 0));
+        favorite_btn.setForeground(new java.awt.Color(255, 255, 255));
+        favorite_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Favorites-Current.png"))); // NOI18N
+        favorite_btn.setBorder(null);
+        favorite_btn.setBorderPainted(false);
+        favorite_btn.setFocusPainted(false);
+        favorite_btn.setFocusable(false);
+        favorite_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                favorite_btnActionPerformed(evt);
             }
         });
 
@@ -104,9 +135,9 @@ public class Book_Description extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(panelBorder1Layout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(borrow_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                        .addComponent(favorite_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
                     .addComponent(book_img, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(27, 27, 27)
                 .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,8 +177,8 @@ public class Book_Description extends javax.swing.JFrame {
                     .addComponent(book_img, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(borrow_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(favorite_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
@@ -172,13 +203,41 @@ public class Book_Description extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_close_btnActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void borrow_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrow_btnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        String query = "INSERT INTO borrowed_books (student_id, book_id, borrowed_at, due_date) VALUES (?,?,?,?)";
+        try {
+            PreparedStatement ps = c.prepareStatement(query);
+            ps.setString(1, student_id);
+            ps.setInt(2, book.getBook_id());
+            LocalDateTime borrowed_at = LocalDateTime.now();
+            ps.setObject(3, borrowed_at);
+            LocalDate due_date = borrowed_at.toLocalDate().plusDays(7);
+            ps.setObject(4, due_date);
+            ps.executeUpdate();
+            
+            System.out.println("Added to borrow");
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Book_Description.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_borrow_btnActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void favorite_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_favorite_btnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+        String query = "INSERT INTO favorites_books (student_id, book_id) VALUES (?,?)";
+        try {
+            PreparedStatement ps = c.prepareStatement(query);
+            ps.setString(1, student_id);
+            ps.setInt(2, book.getBook_id());
+            ps.executeUpdate();
+            System.out.println("addded to favorties");
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Book_Description.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_favorite_btnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel book_author;
@@ -186,9 +245,9 @@ public class Book_Description extends javax.swing.JFrame {
     private javax.swing.JLabel book_overview;
     private javax.swing.JLabel book_released;
     private javax.swing.JLabel book_title;
+    private javax.swing.JButton borrow_btn;
     private javax.swing.JButton close_btn;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton favorite_btn;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblTitle1;
     private javax.swing.JLabel lblTitle2;

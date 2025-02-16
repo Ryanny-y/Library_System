@@ -6,15 +6,18 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import model.Book_Model;
+import model.Current_User;
 
 public class UserFrameHeader extends javax.swing.JPanel implements ActionListener {
 
     Book_Model bookModel = new Book_Model();
-
+    
+    String userName = Current_User.getCurrentUser().getFirst_name().substring(0, 1).toUpperCase() + Current_User.getCurrentUser().getFirst_name().substring(1);
+    
     public UserFrameHeader() {
         initComponents();
         setOpaque(false);
-        lblName.setText("Ryan");
+        lblName.setText(userName);
         search_btn.setBackground(new Color(0,0,0,0));
         search_btn.addActionListener(this);
 
@@ -91,7 +94,7 @@ public class UserFrameHeader extends javax.swing.JPanel implements ActionListene
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == search_btn) {
-            System.out.println(search_field.getText());
+            System.out.println("sss");
         }
     }
     
