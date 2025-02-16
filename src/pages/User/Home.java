@@ -33,10 +33,10 @@ public class Home extends javax.swing.JFrame {
         bookInit();
     }
     
-    private void bookInit() {
-        String query = "SELECT * FROM books";
+    public void bookInit() {
+        String query = "SELECT * FROM books WHERE status = ?";
         Book_Model bookModel = new Book_Model();
-        bookModel.getBooks(query);
+        bookModel.getBooks(query, "AVAILABLE");
 
         // Ensure bookList is not empty before setting it in the container
         if (!Book_Model.bookLists.isEmpty()) {
@@ -72,7 +72,7 @@ public class Home extends javax.swing.JFrame {
         jLabel1.setBackground(new java.awt.Color(27, 76, 140));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(27, 76, 140));
-        jLabel1.setText("All Books");
+        jLabel1.setText("Available Books");
 
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setBorder(null);
@@ -96,8 +96,8 @@ public class Home extends javax.swing.JFrame {
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
+                .addGap(26, 26, 26))
         );
 
         menu2.setMinimumSize(new java.awt.Dimension(230, 96));

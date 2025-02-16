@@ -10,6 +10,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import model.Book_Model;
 
 
 public class Nav_Item extends javax.swing.JPanel {
@@ -56,6 +57,7 @@ public class Nav_Item extends javax.swing.JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
+                    Book_Model.resetBookList();
                     path.getDeclaredConstructor().newInstance();
                     closePage();
                 } catch (Exception ex) {

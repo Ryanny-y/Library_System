@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import model.Book_Model;
 import model.Current_User;
 import swing.AuthButton;
 import model.User_Model;
@@ -266,6 +267,7 @@ public class Profile extends javax.swing.JFrame implements ActionListener{
             Current_User.setCurrentUser(null);
             
             this.dispose();
+            Book_Model.resetBookList();
             new Login();
         }
     }

@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import model.Current_User;
 
 public class Book_Description extends javax.swing.JFrame {
@@ -206,6 +207,7 @@ public class Book_Description extends javax.swing.JFrame {
     private void borrow_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrow_btnActionPerformed
         // TODO add your handling code here:
         String query = "INSERT INTO borrowed_books (student_id, book_id, borrowed_at, due_date) VALUES (?,?,?,?)";
+        String updateStatus = "UPDATE books SET status = ? WHERE book_id = ?";
         try {
             PreparedStatement ps = c.prepareStatement(query);
             ps.setString(1, student_id);
@@ -216,7 +218,17 @@ public class Book_Description extends javax.swing.JFrame {
             ps.setObject(4, due_date);
             ps.executeUpdate();
             
-            System.out.println("Added to borrow");
+            PreparedStatement ps2 = c.prepareStatement(updateStatus);
+            ps2.setString(1, "BORROWED");
+            ps2.setInt(2, book.getBook_id());
+            ps2.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, "Borrowed books", "Borrowed!", JOptionPane.PLAIN_MESSAGE);
+            con.reconnect();
+            this.dispose();
+            Book_Model.resetBookList();
+            Home home = new Home();
+
             
         } catch (SQLException ex) {
             Logger.getLogger(Book_Description.class.getName()).log(Level.SEVERE, null, ex);

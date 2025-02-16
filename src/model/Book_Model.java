@@ -1,7 +1,6 @@
 package model;
 
 import java.awt.Image;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -71,21 +70,28 @@ public class Book_Model {
     private Book_Status status;
     private LocalDateTime created_at;
     public static ArrayList<Book_Model> bookLists = new ArrayList<>();
-    private ArrayList<Book_Model> origList = new ArrayList<>();
-    
-    
+    public static ArrayList<Book_Model> origList = new ArrayList<>();
     
     public void filterList(String search) {
-        System.out.println(search);
+        System.out.println("search");
     }
     
-    public void getBooks(String query) {
+    public static void resetBookList() {
+        bookLists.clear();
+        origList.clear();
+    }
+    
+    public void getBooks(String query, Object... params) {
         ConnDB con = ConnDB.getInstance();
         Connection c = con.getConnection();
-
-        try (PreparedStatement ps = c.prepareStatement(query);
-             ResultSet rs = ps.executeQuery()) {
-
+        
+        try {
+            PreparedStatement ps = c.prepareStatement(query);
+            for(int i = 0; i < params.length; i++) {
+                ps.setObject(i + 1, params[i]);
+            }
+            
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int book_id = rs.getInt("book_id");
                 String title = rs.getString("title");
@@ -105,7 +111,7 @@ public class Book_Model {
             }
             
             bookLists.addAll(origList);
-
+            
         } catch (SQLException ex) {
             Logger.getLogger(Book_Model.class.getName()).log(Level.SEVERE, "Database error", ex);
         }

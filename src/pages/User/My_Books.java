@@ -5,13 +5,15 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JScrollBar;
 import model.Book_Model;
 import model.Book_Status;
 
 public class My_Books extends javax.swing.JFrame {
 
-     ArrayList<Book_Model> bookList = new ArrayList<>();
+    ArrayList<Book_Model> bookList = new ArrayList<>();
      
     public My_Books() {
         initComponents();
@@ -26,32 +28,17 @@ public class My_Books extends javax.swing.JFrame {
     }
     
     private void bookInit() {
-//        Book_Model book1 = new Book_Model(12, "Harry Potter", "Ryan Mabahin", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", 2025, "Harry_Potter",  Book_Status.AVAILABLE, LocalDate.of(2024, 2, 9), LocalDate.of(2024, 2, 9));
-//        Book_Model book2= new Book_Model(12, "Harry Potter", "Ryan Mabahin", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", 2025, "Harry_Potter",  Book_Status.AVAILABLE, LocalDate.of(2024, 2, 9), LocalDate.of(2024, 2, 9));
-//        Book_Model book3 = new Book_Model(12, "Harry Potter", "Ryan Mabahin", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", 2025, "Harry_Potter",  Book_Status.AVAILABLE, LocalDate.of(2024, 2, 9), LocalDate.of(2024, 2, 9));
-//        Book_Model book4 = new Book_Model(12, "Harry Potter", "Ryan Mabahin", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", 2025, "Harry_Potter",  Book_Status.AVAILABLE, LocalDate.of(2024, 2, 9), LocalDate.of(2024, 2, 9));
-//        Book_Model book5 = new Book_Model(12, "Harry Potter", "Ryan Mabahin", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", 2025, "Harry_Potter",  Book_Status.AVAILABLE, LocalDate.of(2024, 2, 9), LocalDate.of(2024, 2, 9));
-//        Book_Model book6 = new Book_Model(12, "Harry Potter", "Ryan Mabahin", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", 2025, "Harry_Potter",  Book_Status.AVAILABLE, LocalDate.of(2024, 2, 9), LocalDate.of(2024, 2, 9));
-//        Book_Model book7 = new Book_Model(12, "Harry Potter", "Ryan Mabahin", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", 2025, "Harry_Potter",  Book_Status.AVAILABLE, LocalDate.of(2024, 2, 9), LocalDate.of(2024, 2, 9));
-//        Book_Model book8 = new Book_Model(12, "Harry Potter", "Ryan Mabahin", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", 2025, "Harry_Potter",  Book_Status.AVAILABLE, LocalDate.of(2024, 2, 9), LocalDate.of(2024, 2, 9));
-//        Book_Model book9 = new Book_Model(12, "Harry Potter", "Ryan Mabahin", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", 2025, "Harry_Potter",  Book_Status.AVAILABLE, LocalDate.of(2024, 2, 9), LocalDate.of(2024, 2, 9));
-//        Book_Model book10 = new Book_Model(12, "Harry Potter", "Ryan Mabahin", "The novels follow Harry Potter, an 11-year-old boy who discovers he is the son of famous wizards and will attend Hogwarts School of Witchcraft and Wizardry", 2025, "Harry_Potter",  Book_Status.AVAILABLE, LocalDate.of(2024, 2, 9), LocalDate.of(2024, 2, 9));
-//        
-//        bookList.add(book1);
-//        bookList.add(book2);
-//        bookList.add(book3);
-//        bookList.add(book4);
-//        bookList.add(book5);
-//        bookList.add(book6);
-//        bookList.add(book7);
-//        bookList.add(book8);
-//        bookList.add(book9);
-//        bookList.add(book10);
+        String query = "SELECT * FROM borrowed_books INNER JOIN books ON borrowed_books.book_id = books.book_id";
+        Book_Model bookModel = new Book_Model();
+        bookModel.getBooks(query);
         
-        BookContainer bookContainer = new BookContainer(bookList);
-        
-        
-        jScrollPane1.setViewportView(bookContainer);
+        // Ensure bookList is not empty before setting it in the container
+        if (!Book_Model.bookLists.isEmpty()) {
+            BookContainer bookContainer = new BookContainer(Book_Model.bookLists);
+            jScrollPane1.setViewportView(bookContainer);
+        } else {
+            Logger.getLogger(Book_Model.class.getName()).log(Level.WARNING, "No books retrieved from the database.");
+        }
     }
 
     /**
@@ -72,6 +59,7 @@ public class My_Books extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(1080, 600));
 
         panelBorder1.setPreferredSize(new Dimension(1080, 60));
 
@@ -96,7 +84,9 @@ public class My_Books extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 868, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

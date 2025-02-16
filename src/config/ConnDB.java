@@ -47,6 +47,11 @@ public class ConnDB {
         }
         return connection;
     }
+    
+    public void reconnect() {
+        closeConnection();
+        connect();
+    }
 
     public void closeConnection() {
         try {

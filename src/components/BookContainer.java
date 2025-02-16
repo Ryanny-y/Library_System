@@ -1,6 +1,7 @@
 package components;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.util.ArrayList;
@@ -42,6 +43,13 @@ public class BookContainer extends javax.swing.JPanel {
         
         gbc.weighty = 1;
         add(new JPanel(), gbc); // Invisible filler
+        
+        int rows = (int) Math.ceil(bookList.size() / 5.0); // Calculate required rows
+        int height = (rows * 210) + 150; // Assuming each book card is around 220px tall
+        setPreferredSize(new Dimension(800, height)); // Adjust width & height as needed
+
+        revalidate(); // Refresh layout
+        repaint();
     }
 
     @SuppressWarnings("unchecked")
