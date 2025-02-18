@@ -38,10 +38,18 @@ public class Home extends javax.swing.JFrame {
         Book_Model bookModel = new Book_Model();
         bookModel.getBooks(query, "AVAILABLE");
 
-        // Ensure bookList is not empty before setting it in the container
+        updateBookList();
+    }
+    
+    public void updateBookList() {
         if (!Book_Model.bookLists.isEmpty()) {
             BookContainer bookContainer = new BookContainer(Book_Model.bookLists);
             jScrollPane1.setViewportView(bookContainer);
+            jScrollPane1.getViewport().addChangeListener(e -> {
+                // Revalidate and repaint after the viewport changes (when scrolling)
+                jScrollPane1.revalidate();
+                jScrollPane1.repaint();
+            });
         } else {
             Logger.getLogger(Book_Model.class.getName()).log(Level.WARNING, "No books retrieved from the database.");
         }
@@ -56,12 +64,11 @@ public class Home extends javax.swing.JFrame {
         mainPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        userFrameHeader1 = new components.UserFrameHeader();
+        userFrameHeader1 = new components.UserFrameHeader(this);
         menu2 = new components.Menu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1080, 600));
         setResizable(false);
 
         panelBorder1.setPreferredSize(new Dimension(1080, 60));

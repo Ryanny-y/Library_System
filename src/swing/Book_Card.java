@@ -6,9 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.Image;
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import model.Book_Model;
 import pages.User.Book_Description;
 
@@ -21,7 +19,7 @@ public class Book_Card extends javax.swing.JPanel{
         this.book = book;
         setOpaque(false);
         lbl_img.setIcon(book.toIcon(lbl_img, book));
-        lblTitle.setText(book.getTitle());
+        lblTitle.setText("<html><div style='text-align:center;'>" + book.getTitle() + "</div></html>");
         lblAuthor.setText("Author: " + book.getAuthor());
         lblPublished.setText("Year Published: " + book.getYear_published());
         
@@ -56,7 +54,7 @@ public class Book_Card extends javax.swing.JPanel{
         lblPublished = new javax.swing.JLabel();
 
         setOpaque(false);
-        setPreferredSize(new java.awt.Dimension(150, 210));
+        setPreferredSize(new java.awt.Dimension(180, 210));
 
         lbl_img.setBackground(new java.awt.Color(153, 0, 0));
         lbl_img.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -79,12 +77,12 @@ public class Book_Card extends javax.swing.JPanel{
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblAuthor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblPublished, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE))
+                    .addComponent(lblPublished, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbl_img, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
+                .addGap(42, 42, 42))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

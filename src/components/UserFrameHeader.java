@@ -3,15 +3,16 @@ package components;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import javax.swing.JFrame;
 import model.Book_Model;
 import model.Current_User;
 import model.User_Model;
+import pages.User.Home;
 
 public class UserFrameHeader extends javax.swing.JPanel implements ActionListener {
 
     Book_Model bookModel = new Book_Model();
+    JFrame frame;
     
     String userName = "";
     
@@ -28,12 +29,21 @@ public class UserFrameHeader extends javax.swing.JPanel implements ActionListene
         search_btn.setBackground(new Color(0,0,0,0));
         search_btn.addActionListener(this);
 
-        search_field.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {  // Use keyReleased instead of keyPressed
-                bookModel.filterList(search_field.getText().trim()); // Trim spaces to avoid errors
-            }
-        });
+    }
+    
+    public UserFrameHeader(JFrame frame) {
+        this.frame = frame;
+        initComponents();
+        setOpaque(false);
+        User_Model user = Current_User.getCurrentUser();
+
+        if (user != null && user.getFirst_name() != null && !user.getFirst_name().isEmpty()) {
+            userName = user.getFirst_name().substring(0, 1).toUpperCase() + user.getFirst_name().substring(1);
+        }
+        
+        lblName.setText(userName);
+        search_btn.setBackground(new Color(0,0,0,0));
+        search_btn.addActionListener(this);
     }
 
     @SuppressWarnings("unchecked")
@@ -101,7 +111,11 @@ public class UserFrameHeader extends javax.swing.JPanel implements ActionListene
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == search_btn) {
-            System.out.println("sss");
+            bookModel.filterList(search_field.getText().trim()); // Trim spaces to avoid errors
+            if (frame instanceof Home) {
+                Home homeFrame = (Home) frame;
+                homeFrame.updateBookList(); // Now it can access updateBookList()
+            }
         }
     }
     

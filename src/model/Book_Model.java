@@ -71,11 +71,53 @@ public class Book_Model {
     private LocalDateTime created_at;
     public static ArrayList<Book_Model> bookLists = new ArrayList<>();
     public static ArrayList<Book_Model> origList = new ArrayList<>();
+    public static ArrayList<Book_Model> searchList = new ArrayList<>();
     
     public void filterList(String search) {
-        System.out.println("search");
+        searchList.clear(); // Clear previous results
+
+        String query = "SELECT * FROM books WHERE title LIKE ?";
+        ConnDB con = ConnDB.getInstance();
+        Connection c = con.getConnection();
+        
+        if(search.isEmpty() || search.equalsIgnoreCase("Search")) {
+            bookLists.clear();
+            bookLists.addAll(origList);
+            return;
+        }
+        
+        System.out.println("executed!");
+
+        try {
+            PreparedStatement ps = c.prepareStatement(query);
+            ps.setString(1, "%" + search + "%"); // Allow partial matches
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int book_id = rs.getInt("book_id");
+                String title = rs.getString("title");
+                String author = rs.getString("author");
+                String overview = rs.getString("overview");
+                int year_published = rs.getInt("year_published");
+                String cover_img = rs.getString("cover_img");
+                String statusDB = rs.getString("status");
+                Book_Status status = Book_Status.valueOf(statusDB);
+
+                Timestamp c_time = rs.getTimestamp("created_at");
+                LocalDateTime created_at = (c_time != null) ? c_time.toLocalDateTime() : null;
+
+                Book_Model book = new Book_Model(book_id, title, author, overview, year_published, cover_img, status, created_at);
+                searchList.add(book);
+            }
+
+            bookLists.clear();
+            bookLists.addAll(searchList);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Book_Model.class.getName()).log(Level.SEVERE, "Database error", ex);
+        }
     }
-    
+
     public static void resetBookList() {
         bookLists.clear();
         origList.clear();
@@ -144,7 +186,6 @@ public class Book_Model {
 
          return new ImageIcon(resizedImage);
     }
-    
     
     
     public Book_Model(int book_id, String title, String author, String overview, int year_published, String cover_img,  Book_Status status, LocalDateTime created_at) {
