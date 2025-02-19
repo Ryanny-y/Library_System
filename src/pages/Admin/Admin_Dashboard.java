@@ -1,25 +1,18 @@
 package pages.Admin;
 
 import java.awt.Color;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.Scrollbar;
-import swing.Stats_Card;
 
 public class Admin_Dashboard extends javax.swing.JFrame {
 
     public Admin_Dashboard() {
         initComponents();
         setVisible(true);
+        menu1.initMoving(this);
         setBackground(new Color(0,0,0,0));
         sp1.setBackground(new Color(0,0,0,0));
         sp1.setOpaque(false);
-//        scrollPanel1.setVerticalScrollBar(new Scrollbar());
     }
     
-    
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

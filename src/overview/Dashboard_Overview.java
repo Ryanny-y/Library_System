@@ -16,7 +16,6 @@ public class Dashboard_Overview extends javax.swing.JPanel {
     ConnDB con = ConnDB.getInstance();
     Connection c = con.getConnection();
     
-            
     public Dashboard_Overview() {
         initComponents();
         setBackground(new Color(0,0,0,0));
@@ -25,41 +24,28 @@ public class Dashboard_Overview extends javax.swing.JPanel {
         card3.setData("123", "UserBig", "Borrowed Books");
         card4.setData("123", "UserBig", "Overdue Books");
         
-        JPanel p = new JPanel();
-        
         addRow();
     }
     
     private void addRow() {
-//        table.addRow(new Object[]{101, "Alice Johnson", "alice.johnson@example.com", "2023-01-15"});
-//        table.addRow(new Object[]{102, "Bob Smith", "bob.smith@example.com", "2023-02-10"});
-//        table.addRow(new Object[]{103, "Charlie Brown", "charlie.brown@example.com", "2023-03-05"});
-//        table.addRow(new Object[]{104, "David Wilson", "david.wilson@example.com", "2023-04-12"});
-//        table.addRow(new Object[]{105, "Emma Davis", "emma.davis@example.com", "2023-05-20"});
-//        table.addRow(new Object[]{106, "Frank Harris", "frank.harris@example.com", "2023-06-25"});
-//        table.addRow(new Object[]{107, "Grace Martinez", "grace.martinez@example.com", "2023-07-30"});
-//        table.addRow(new Object[]{108, "Henry White", "henry.white@example.com", "2023-08-15"});
-//        table.addRow(new Object[]{109, "Isabella Anderson", "isabella.anderson@example.com", "2023-09-22"});
-//        table.addRow(new Object[]{110, "Jack Thomas", "jack.thomas@example.com", "2023-10-18"});
+        if (c == null) {
+            System.err.println("Database connection is NULL!");
+            return;
+        }
         String query = "SELECT * FROM users";
         try {
             PreparedStatement ps = c.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
-            
-            while(rs.next()) {
+            while (rs.next()) {
                 String student_id = rs.getString("student_id");
                 String fullName = rs.getString("first_name") + " " + rs.getString("last_name");
-                String email = rs.getString(("email"));
+                String email = rs.getString("email");
                 LocalDateTime joined_at = rs.getObject("joined_at", LocalDateTime.class);
                 table.addRow(new Object[]{student_id, fullName, email, joined_at});
             }
-            
         } catch (SQLException ex) {
             Logger.getLogger(Dashboard_Overview.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-
     }
     
     

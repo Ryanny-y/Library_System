@@ -8,6 +8,8 @@ public class Admin_Books extends javax.swing.JFrame {
     public Admin_Books() {
         initComponents();
         setVisible(true);
+        menu1.initMoving(this);
+
         setBackground(new Color(0,0,0,0));
     }
 
@@ -18,6 +20,7 @@ public class Admin_Books extends javax.swing.JFrame {
         panelBorder1 = new swing.PanelBorder();
         menu1 = new components.Menu();
         adminFrameHeader2 = new components.AdminFrameHeader();
+        books_Overview1 = new overview.Books_Overview();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -31,14 +34,20 @@ public class Admin_Books extends javax.swing.JFrame {
             .addGroup(panelBorder1Layout.createSequentialGroup()
                 .addComponent(menu1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(adminFrameHeader2, javax.swing.GroupLayout.DEFAULT_SIZE, 874, Short.MAX_VALUE))
+                .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(adminFrameHeader2, javax.swing.GroupLayout.DEFAULT_SIZE, 874, Short.MAX_VALUE)
+                    .addGroup(panelBorder1Layout.createSequentialGroup()
+                        .addComponent(books_Overview1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         panelBorder1Layout.setVerticalGroup(
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(menu1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(menu1, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)
             .addGroup(panelBorder1Layout.createSequentialGroup()
                 .addComponent(adminFrameHeader2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(books_Overview1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -58,6 +67,7 @@ public class Admin_Books extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private components.AdminFrameHeader adminFrameHeader2;
+    private overview.Books_Overview books_Overview1;
     private components.Menu menu1;
     private swing.PanelBorder panelBorder1;
     // End of variables declaration//GEN-END:variables
