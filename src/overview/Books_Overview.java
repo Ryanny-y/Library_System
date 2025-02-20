@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import pages.Add_Book_Frame;
 
 public class Books_Overview extends javax.swing.JPanel {
 
@@ -142,7 +143,8 @@ public class Books_Overview extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     
     private void add_book_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_book_btnActionPerformed
-        // TODO add your handling code here:
+        System.out.println("Clicked");
+        new Add_Book_Frame();
     }//GEN-LAST:event_add_book_btnActionPerformed
 
 

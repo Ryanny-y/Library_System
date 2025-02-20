@@ -38,13 +38,22 @@ public class BookListTable extends JTable {
                 if(column == 3) {
                     String strValue = value.toString();
                     JLabel label = new JLabel(strValue);
+                    Color foreground = new Color(46, 204, 113);
+                    
                     
                     if(strValue.equalsIgnoreCase("AVAILABLE")) {
-                        label.setForeground(new Color(46, 204, 113));
+                        foreground = new Color(46, 204, 113);
                     } else if(strValue.equalsIgnoreCase("BORROWED")) {
-                        label.setForeground(new Color(230, 126, 34));
+                        foreground = new Color(230, 126, 34);
                     } else if(strValue.equalsIgnoreCase("RETURNED")) {
-                        label.setForeground(new Color(52, 152, 219));
+                        foreground = new Color(52, 152, 219);
+                    } 
+                    
+                    if(isSelected) {
+                        label.setForeground(new Color(27,76,140));
+                        label.setFont(new Font("sansserif", 1, 12));
+                    } else {
+                        label.setForeground(foreground);
                     }
                     
                     return label;

@@ -162,7 +162,8 @@ public class Book_Model {
     
     
     public Icon toIcon(JLabel lbl, Book_Model book) {
-        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/images/Books/" + book.getCover_img() + ".jpg"));
+        
+        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/images/Books/" + book.getCover_img()));
         Image image = imageIcon.getImage();
         
         // Get JLabel dimensions
