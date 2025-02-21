@@ -108,7 +108,44 @@ public class User_Model {
         return User_Role.valueOf(dbRole);
     }
     
+    private static boolean penaltyCalled = false;
     public static void addPenalty() {
+        if(!penaltyCalled) {
+            addBookPenalty();
+            addUserPenalty();
+            penaltyCalled = true;
+        }
+    }
+    
+    private static void addUserPenalty() {
+        ConnDB con = ConnDB.getInstance();
+        Connection c = con.getConnection();
+        
+        String selectQuery = "SELECT bb.student_id, bb.penalty FROM users INNER JOIN borrowed_books AS bb ON users.student_id = bb.student_id WHERE users.student_id = ? ";
+        
+        try {
+            PreparedStatement ps = c.prepareStatement(selectQuery);
+            String student_id = Current_User.getCurrentUser().getStudent_id();
+            ps.setString(1, student_id);
+            ResultSet rs = ps.executeQuery();
+            
+            double totalPenalty = 0;
+            while(rs.next()) {
+                double penalty = rs.getDouble("penalty");
+                totalPenalty += penalty;
+            }
+               
+            String updateQuery = "UPDATE users SET penalty = ? WHERE student_id = ?";
+            PreparedStatement ps1 = c.prepareStatement(updateQuery);
+            ps1.setDouble(1, totalPenalty);
+            ps1.setString(2, student_id);
+            ps1.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(User_Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private static void addBookPenalty() {
         ConnDB con = ConnDB.getInstance();
         Connection c = con.getConnection();
         
@@ -142,7 +179,7 @@ public class User_Model {
         } catch (SQLException ex) {
             Logger.getLogger(User_Model.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
+        
    
 }

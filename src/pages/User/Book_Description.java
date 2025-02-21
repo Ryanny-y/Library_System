@@ -266,20 +266,11 @@ public class Book_Description extends javax.swing.JFrame {
     }
     
     private void borrowBook() {
-        String query = "INSERT INTO borrowed_books (student_id, book_id, borrowed_at, due_date) VALUES (?,?,?,?)";
         String updateStatus = "UPDATE books SET status = ? WHERE book_id = ?";
         try {
-            PreparedStatement ps = c.prepareStatement(query);
-            ps.setString(1, student_id);
-            ps.setInt(2, book.getBook_id());
-            LocalDateTime borrowed_at = LocalDateTime.now();
-            ps.setObject(3, borrowed_at);
-            LocalDate due_date = borrowed_at.toLocalDate().plusDays(7);
-            ps.setObject(4, due_date);
-            ps.executeUpdate();
             
             PreparedStatement ps2 = c.prepareStatement(updateStatus);
-            ps2.setString(1, "BORROWED");
+            ps2.setString(1, "REQUEST");
             ps2.setInt(2, book.getBook_id());
             ps2.executeUpdate();
             

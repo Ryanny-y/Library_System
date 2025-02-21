@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import pages.Add_Book_Frame;
 import pages.Admin.Admin_Books;
@@ -22,6 +24,7 @@ public class Books_Overview extends javax.swing.JPanel {
         initComponents();
         setBackground(new Color(0,0,0,0));
         addRows();
+        
     }
     
     private void addRows() {
@@ -46,7 +49,7 @@ public class Books_Overview extends javax.swing.JPanel {
         } catch (SQLException ex) {
             Logger.getLogger(Dashboard_Overview.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+         
     }
 
     @SuppressWarnings("unchecked")
@@ -85,11 +88,11 @@ public class Books_Overview extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Id", "Title", "Author", "Status", "Added At"
+                "Id", "Title", "Author", "Status", "Added At", "Actions"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -102,15 +105,15 @@ public class Books_Overview extends javax.swing.JPanel {
         panelBorder2.setLayout(panelBorder2Layout);
         panelBorder2Layout.setHorizontalGroup(
             panelBorder2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBorder2Layout.createSequentialGroup()
+            .addGroup(panelBorder2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelBorder2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
+                .addGroup(panelBorder2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
                     .addGroup(panelBorder2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(add_book_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 424, Short.MAX_VALUE)
+                        .addComponent(add_book_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         panelBorder2Layout.setVerticalGroup(
             panelBorder2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
