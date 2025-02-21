@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import model.Book_Model;
 import model.Current_User;
 import model.User_Model;
+import model.User_Role;
 import pages.User.Home;
 
 public class UserFrameHeader extends javax.swing.JPanel implements ActionListener {
@@ -20,7 +21,7 @@ public class UserFrameHeader extends javax.swing.JPanel implements ActionListene
         initComponents();
         setOpaque(false);
         User_Model user = Current_User.getCurrentUser();
-
+        
         if (user != null && user.getFirst_name() != null && !user.getFirst_name().isEmpty()) {
             userName = user.getFirst_name().substring(0, 1).toUpperCase() + user.getFirst_name().substring(1);
         }
@@ -45,7 +46,7 @@ public class UserFrameHeader extends javax.swing.JPanel implements ActionListene
         search_btn.setBackground(new Color(0,0,0,0));
         search_btn.addActionListener(this);
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

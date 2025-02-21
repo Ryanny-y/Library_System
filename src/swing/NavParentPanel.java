@@ -1,4 +1,5 @@
 package swing;
+import pages.User.Profile;
 import pages.Admin.Admin_Books;
 import pages.Admin.Admin_Users;
 import pages.Admin.Admin_Dashboard;
@@ -13,6 +14,7 @@ import java.awt.RenderingHints;
 import javax.swing.Box;
 import model.*;
 import pages.*;
+import pages.Admin.Admin_Profile;
 
 public class NavParentPanel extends javax.swing.JPanel {
 
@@ -53,7 +55,7 @@ public class NavParentPanel extends javax.swing.JPanel {
         Nav_Item item1 = new Nav_Item("Dashboard", "Home", Admin_Dashboard.class);
         Nav_Item item2 = new Nav_Item("Users", "Users", Admin_Users.class);
         Nav_Item item3 = new Nav_Item("Books", "MyBooks", Admin_Books.class);
-        Nav_Item item4 = new Nav_Item("Profile", "Profile", Profile.class);
+        Nav_Item item4 = new Nav_Item("Profile", "Profile", Admin_Profile.class);
         
         addNavItemWithGap(item1, 5);
         addNavItemWithGap(item2, 5);

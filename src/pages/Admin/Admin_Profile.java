@@ -1,4 +1,5 @@
-package pages;
+package pages.Admin;
+import pages.*;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -8,17 +9,29 @@ import model.Current_User;
 import swing.AuthButton;
 import model.User_Model;
 
-public class Profile extends javax.swing.JFrame implements ActionListener{
+public class Admin_Profile extends javax.swing.JFrame {
 
     User_Model user = Current_User.getCurrentUser();
     
-    public Profile() {
+    public Admin_Profile() {
         initComponents();
         setBackground(new Color(0,0,0,0));
-//        menu1.initMoving(this);
-        logoutBtn.addActionListener(this);
+        menu1.initMoving(this);
         setVisible(true);
-        
+        if(user != null) {
+            initInfo();
+        }
+    }
+    
+    private void initInfo() {
+        student_num.setText(user.getStudent_id());
+        String lastName = user.getLast_name().substring(0, 1).toUpperCase() + user.getLast_name().substring(1);
+        String firstName = user.getFirst_name().substring(0, 1).toUpperCase() + user.getFirst_name().substring(1);
+        name.setText(lastName + ", " + firstName);
+        email.setText(user.getEmail());
+        String pass = user.getPassword();
+        password.setText("**********");
+        penalty.setText(String.valueOf(user.getPenalty()));
     }
 
     @SuppressWarnings("unchecked")
@@ -27,7 +40,6 @@ public class Profile extends javax.swing.JFrame implements ActionListener{
 
         panelBorder1 = new swing.PanelBorder();
         menu1 = new components.Menu();
-        frameHeader2 = new components.UserFrameHeader();
         mainPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -35,19 +47,22 @@ public class Profile extends javax.swing.JFrame implements ActionListener{
         jLabel12 = new javax.swing.JLabel();
         studentInfoBox = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        student_num = new javax.swing.JLabel();
+        name = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        email = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        password = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        penalty = new javax.swing.JLabel();
+        adminFrameHeader1 = new components.AdminFrameHeader();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new Dimension(1080, 600));
+        setPreferredSize(new java.awt.Dimension(1080, 600));
+
+        panelBorder1.setPreferredSize(new java.awt.Dimension(1080, 600));
 
         mainPanel.setBackground(new java.awt.Color(204, 204, 204));
         mainPanel.setOpaque(false);
@@ -101,21 +116,21 @@ public class Profile extends javax.swing.JFrame implements ActionListener{
         jLabel2.setForeground(new java.awt.Color(104, 104, 104));
         jLabel2.setText("Student Number:");
 
-        jLabel3.setBackground(new java.awt.Color(51, 51, 51));
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel3.setText("42141241-412412412");
+        student_num.setBackground(new java.awt.Color(51, 51, 51));
+        student_num.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        student_num.setText("number here");
 
-        jLabel4.setBackground(new java.awt.Color(51, 51, 51));
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel4.setText("42141241-412412412");
+        name.setBackground(new java.awt.Color(51, 51, 51));
+        name.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        name.setText("name here");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(104, 104, 104));
         jLabel5.setText("Student Name:");
 
-        jLabel6.setBackground(new java.awt.Color(51, 51, 51));
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel6.setText("42141241-412412412");
+        email.setBackground(new java.awt.Color(51, 51, 51));
+        email.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        email.setText("email here");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(104, 104, 104));
@@ -125,17 +140,17 @@ public class Profile extends javax.swing.JFrame implements ActionListener{
         jLabel8.setForeground(new java.awt.Color(104, 104, 104));
         jLabel8.setText("Password:");
 
-        jLabel9.setBackground(new java.awt.Color(51, 51, 51));
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel9.setText("************************");
+        password.setBackground(new java.awt.Color(51, 51, 51));
+        password.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        password.setText("password here");
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(104, 104, 104));
-        jLabel10.setText("Student Number:");
+        jLabel10.setText("Penalty");
 
-        jLabel11.setBackground(new java.awt.Color(51, 51, 51));
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel11.setText("42141241-412412412");
+        penalty.setBackground(new java.awt.Color(51, 51, 51));
+        penalty.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        penalty.setText("penalty here");
 
         javax.swing.GroupLayout studentInfoBoxLayout = new javax.swing.GroupLayout(studentInfoBox);
         studentInfoBox.setLayout(studentInfoBoxLayout);
@@ -147,29 +162,29 @@ public class Profile extends javax.swing.JFrame implements ActionListener{
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(studentInfoBoxLayout.createSequentialGroup()
                             .addGap(14, 14, 14)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(studentInfoBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(studentInfoBoxLayout.createSequentialGroup()
                             .addGap(22, 22, 22)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(studentInfoBoxLayout.createSequentialGroup()
                             .addGap(36, 36, 36)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(student_num, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(studentInfoBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(studentInfoBoxLayout.createSequentialGroup()
                             .addGap(14, 14, 14)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(studentInfoBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(studentInfoBoxLayout.createSequentialGroup()
                             .addGap(14, 14, 14)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(studentInfoBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(studentInfoBoxLayout.createSequentialGroup()
                             .addGap(14, 14, 14)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(penalty, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(65, Short.MAX_VALUE))
         );
         studentInfoBoxLayout.setVerticalGroup(
@@ -178,23 +193,23 @@ public class Profile extends javax.swing.JFrame implements ActionListener{
                 .addGap(33, 33, 33)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(student_num, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(penalty, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -220,7 +235,7 @@ public class Profile extends javax.swing.JFrame implements ActionListener{
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(studentInfoBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(37, 37, 37))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
@@ -231,18 +246,18 @@ public class Profile extends javax.swing.JFrame implements ActionListener{
                 .addComponent(menu1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(frameHeader2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(adminFrameHeader1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         panelBorder1Layout.setVerticalGroup(
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBorder1Layout.createSequentialGroup()
-                .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(menu1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelBorder1Layout.createSequentialGroup()
-                        .addComponent(frameHeader2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(adminFrameHeader1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -250,53 +265,45 @@ public class Profile extends javax.swing.JFrame implements ActionListener{
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, 1106, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == logoutBtn) {
-            Current_User.setCurrentUser(null);
-            
-            this.dispose();
-            Book_Model.resetBookList();
-            new Login();
-        }
-    }
-    
-    
-    
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
         // TODO add your handling code here:
+        Current_User.setCurrentUser(null);
+            
+        this.dispose();
+        Book_Model.resetBookList();
+        new Login();
     }//GEN-LAST:event_logoutBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private components.UserFrameHeader frameHeader2;
+    private components.AdminFrameHeader adminFrameHeader1;
+    private javax.swing.JLabel email;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton logoutBtn;
     private javax.swing.JPanel mainPanel;
     private components.Menu menu1;
+    private javax.swing.JLabel name;
     private swing.PanelBorder panelBorder1;
+    private javax.swing.JLabel password;
+    private javax.swing.JLabel penalty;
     private javax.swing.JPanel studentInfoBox;
+    private javax.swing.JLabel student_num;
     // End of variables declaration//GEN-END:variables
 }

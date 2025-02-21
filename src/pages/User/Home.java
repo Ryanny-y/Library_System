@@ -1,23 +1,12 @@
 package pages.User;
 
 import java.awt.Color;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import model.Book_Model;
 import components.BookContainer;
-import config.ConnDB;
 import java.awt.Dimension;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JScrollBar;
-import model.Book_Status;
-import model.Current_User;
 import model.User_Model;
 
 public class Home extends javax.swing.JFrame {
@@ -31,6 +20,7 @@ public class Home extends javax.swing.JFrame {
         JScrollBar vScroll = jScrollPane1.getVerticalScrollBar();
         vScroll.setUnitIncrement(10);
         bookInit();
+        User_Model.addPenalty();
     }
     
     public void bookInit() {

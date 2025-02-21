@@ -328,6 +328,7 @@ public class Book_Description extends javax.swing.JFrame {
 
     private void favorite_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_favorite_btnActionPerformed
         // TODO add your handling code here:
+        System.out.println("Add to f");
         String query = "INSERT INTO favorites_books (student_id, book_id) VALUES (?,?)";
         try {
             PreparedStatement ps = c.prepareStatement(query);

@@ -4,9 +4,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JScrollBar;
 import model.Book_Model;
-import model.Book_Status;
 
 public class Favorites extends javax.swing.JFrame {
     public Favorites() {
@@ -20,17 +21,18 @@ public class Favorites extends javax.swing.JFrame {
         bookInit();
     }
     
-    ArrayList<Book_Model> bookList;
-    
     private void bookInit() {
-//        String query = "SELECT * FROM books";
-//        bookList = Book_Model.getBooks(query);
-//       
+        String query = "SELECT * FROM favorites_books INNER JOIN books ON favorites_books.book_id = books.book_id";
+        Book_Model bookModel = new Book_Model();
+        bookModel.getBooks(query);
         
-        BookContainer bookContainer = new BookContainer(bookList);
-        
-        
-        jScrollPane1.setViewportView(bookContainer);
+        // Ensure bookList is not empty before setting it in the container
+        if (!Book_Model.bookLists.isEmpty()) {
+            BookContainer bookContainer = new BookContainer(Book_Model.bookLists);
+            jScrollPane1.setViewportView(bookContainer);
+        } else {
+            Logger.getLogger(Book_Model.class.getName()).log(Level.WARNING, "No books retrieved from the database.");
+        }
     }
 
     @SuppressWarnings("unchecked")

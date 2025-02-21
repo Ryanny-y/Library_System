@@ -1,6 +1,17 @@
 package model;
 
+import config.ConnDB;
+import java.time.LocalDate;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class User_Model {
 
@@ -95,6 +106,43 @@ public class User_Model {
     
     private User_Role convertRole(String dbRole) {
         return User_Role.valueOf(dbRole);
+    }
+    
+    public static void addPenalty() {
+        ConnDB con = ConnDB.getInstance();
+        Connection c = con.getConnection();
+        
+        String selectQuery = "SELECT * FROM borrowed_books AS bb INNER JOIN books ON bb.book_id = books.book_id WHERE bb.returned_at IS NULL AND CURDATE() > bb.due_date";
+        
+        try {
+            PreparedStatement ps = c.prepareStatement(selectQuery);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()) {
+                int id = rs.getInt("id");
+                String title = rs.getString("title");
+                LocalDate dueDate = rs.getObject("due_date", LocalDate.class);
+                
+                LocalDate curDate = LocalDate.now();
+                long overdueDays = ChronoUnit.DAYS.between(dueDate, curDate);
+                
+                if(overdueDays > 0) {
+                    double penalty = overdueDays * 200;
+                    
+                    String updateQuery = "UPDATE borrowed_books SET penalty = ? WHERE id = ?";
+                    PreparedStatement ps1 = c.prepareStatement(updateQuery);
+                    ps1.setDouble(1, penalty);
+                    ps1.setInt(2, id);
+                    ps1.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "The book titled " + title + " is overdue. Please return it as soon as possible to avoid further penalties.", "Penalty Updated" , JOptionPane.WARNING_MESSAGE);
+                }
+                
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(User_Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
    
 }

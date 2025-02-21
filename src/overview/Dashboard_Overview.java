@@ -19,12 +19,38 @@ public class Dashboard_Overview extends javax.swing.JPanel {
     public Dashboard_Overview() {
         initComponents();
         setBackground(new Color(0,0,0,0));
-        card1.setData("1234", "UserBig", "Total Users");
-        card2.setData("123", "UserBig", "Total Books");
-        card3.setData("123", "UserBig", "Borrowed Books");
-        card4.setData("123", "UserBig", "Overdue Books");
+        initCard();
         
         addRow();
+    }
+    
+    private void initCard() {
+        String query = "SELECT (SELECT COUNT(*) FROM users), " + 
+               "(SELECT COUNT(*) FROM books), " + 
+               "(SELECT COUNT(*) FROM borrowed_books)";
+        int totalUsers = 0;
+        int totalBooks = 0;
+        int totalBorrowedBooks = 0;
+        
+        try {
+            PreparedStatement ps = c.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next()) {
+                totalUsers = rs.getInt(1);           
+                totalBooks = rs.getInt(2);          
+                totalBorrowedBooks = rs.getInt(3);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Dashboard_Overview.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        card1.setData(String.valueOf(totalUsers) , "UserBig", "Total Users");
+        card2.setData(String.valueOf(totalBooks), "UserBig", "Total Books");
+        card3.setData(String.valueOf(totalBorrowedBooks), "UserBig", "Borrowed Books");
+        card4.setData("123", "UserBig", "Overdue Books");
     }
     
     private void addRow() {
@@ -47,8 +73,6 @@ public class Dashboard_Overview extends javax.swing.JPanel {
             Logger.getLogger(Dashboard_Overview.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -82,7 +106,7 @@ public class Dashboard_Overview extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Student ID", "Name", "Email", "Joined", "Actions"
+                "Student Number", "Name", "Email", "Created at", "Actions"
             }
         ) {
             boolean[] canEdit = new boolean [] {

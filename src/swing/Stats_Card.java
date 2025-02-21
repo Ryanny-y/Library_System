@@ -61,11 +61,13 @@ public class Stats_Card extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(200, 135));
 
         lblname.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
+        lblname.setForeground(new java.awt.Color(255, 255, 255));
         lblname.setText("123");
 
         lblIcon.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
 
         lblDescription.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblDescription.setForeground(new java.awt.Color(255, 255, 255));
         lblDescription.setText("Description");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

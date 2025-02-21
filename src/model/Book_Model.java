@@ -17,16 +17,10 @@ import java.sql.Timestamp;
 
 public class Book_Model {
 
-    /**
-     * @return the status
-     */
     public Book_Status getStatus() {
         return status;
     }
 
-    /**
-     * @param status the status to set
-     */
     public void setStatus(Book_Status status) {
         this.status = status;
     }
@@ -88,7 +82,7 @@ public class Book_Model {
     public static ArrayList<Book_Model> searchList = new ArrayList<>();
     
     public void filterList(String search) {
-        searchList.clear(); // Clear previous results
+        searchList.clear(); 
 
         String query = "SELECT * FROM books WHERE title LIKE ?";
         ConnDB con = ConnDB.getInstance();
@@ -100,8 +94,6 @@ public class Book_Model {
             return;
         }
         
-        System.out.println("executed!");
-
         try {
             PreparedStatement ps = c.prepareStatement(query);
             ps.setString(1, "%" + search + "%"); // Allow partial matches
