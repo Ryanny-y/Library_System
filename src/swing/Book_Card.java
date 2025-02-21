@@ -4,9 +4,12 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.Window;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.Icon;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import model.Book_Model;
 import pages.User.Book_Description;
 
@@ -23,11 +26,15 @@ public class Book_Card extends javax.swing.JPanel{
         lblAuthor.setText("Author: " + book.getAuthor());
         lblPublished.setText("Year Published: " + book.getYear_published());
         
+        
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                new Book_Description(book);
-            }
+                Window window = SwingUtilities.getWindowAncestor(e.getComponent()); 
+                    if (window instanceof JFrame) {
+                        new Book_Description(book, (JFrame) window);
+                    }
+                }
             
         });
     }

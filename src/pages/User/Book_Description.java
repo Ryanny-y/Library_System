@@ -1,6 +1,7 @@
 package pages.User;
 
 import config.ConnDB;
+import java.awt.Color;
 import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -22,19 +23,24 @@ public class Book_Description extends javax.swing.JFrame {
     ConnDB con = ConnDB.getInstance();
     Connection c = con.getConnection();
     String student_id = Current_User.getCurrentUser().getStudent_id();
+    private String bookStatus;
+    private JFrame currentFrame;
     
-    
-    public Book_Description(Book_Model book) {
+    public Book_Description(Book_Model book, JFrame frame) {
         initComponents();
         setVisible(true);
         this.book = book;
+        this.currentFrame = frame;
+        System.out.println(frame.getClass().getSimpleName());
         book_title.setText(book.getTitle());
         book_overview.setText("<html>" + book.getOverview() + "</html>");
         book_author.setText(book.getAuthor());
         book_released.setText(book.getYear_published() + "");
         book_img.setIcon(book.toIcon(book_img, book));
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        checkStatus();
     }
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -50,7 +56,7 @@ public class Book_Description extends javax.swing.JFrame {
         book_overview = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         book_img = new javax.swing.JLabel();
-        borrow_btn = new javax.swing.JButton();
+        action_btn = new javax.swing.JButton();
         favorite_btn = new javax.swing.JButton();
         lbl4 = new javax.swing.JLabel();
         book_released = new javax.swing.JLabel();
@@ -58,7 +64,10 @@ public class Book_Description extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(500, 400));
         setResizable(false);
+
+        shadowPane1.setPreferredSize(new java.awt.Dimension(500, 500));
 
         lbl1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lbl1.setForeground(new java.awt.Color(51, 51, 51));
@@ -84,17 +93,17 @@ public class Book_Description extends javax.swing.JFrame {
 
         book_img.setPreferredSize(new java.awt.Dimension(215, 260));
 
-        borrow_btn.setBackground(new java.awt.Color(27, 76, 140));
-        borrow_btn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        borrow_btn.setForeground(new java.awt.Color(255, 255, 255));
-        borrow_btn.setText("Borrow Book");
-        borrow_btn.setBorder(null);
-        borrow_btn.setBorderPainted(false);
-        borrow_btn.setFocusPainted(false);
-        borrow_btn.setFocusable(false);
-        borrow_btn.addActionListener(new java.awt.event.ActionListener() {
+        action_btn.setBackground(new java.awt.Color(27, 76, 140));
+        action_btn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        action_btn.setForeground(new java.awt.Color(255, 255, 255));
+        action_btn.setText("Borrow Book");
+        action_btn.setBorder(null);
+        action_btn.setBorderPainted(false);
+        action_btn.setFocusPainted(false);
+        action_btn.setFocusable(false);
+        action_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                borrow_btnActionPerformed(evt);
+                action_btnActionPerformed(evt);
             }
         });
 
@@ -116,7 +125,7 @@ public class Book_Description extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(borrow_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(action_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(favorite_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -133,7 +142,7 @@ public class Book_Description extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(favorite_btn, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                    .addComponent(borrow_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(action_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -149,6 +158,11 @@ public class Book_Description extends javax.swing.JFrame {
         jButton1.setContentAreaFilled(false);
         jButton1.setFocusPainted(false);
         jButton1.setFocusable(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLayeredPane1.setLayer(lbl1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(book_title, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -170,19 +184,15 @@ public class Book_Description extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(book_title)
-                            .addComponent(lbl2)
-                            .addComponent(book_author)
-                            .addComponent(lbl3)
-                            .addComponent(book_overview)
-                            .addComponent(lbl4)
-                            .addComponent(book_released))
-                        .addContainerGap(103, Short.MAX_VALUE))
-                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                        .addComponent(lbl1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(book_title)
+                    .addComponent(lbl2)
+                    .addComponent(book_author)
+                    .addComponent(lbl3)
+                    .addComponent(book_overview)
+                    .addComponent(lbl4)
+                    .addComponent(book_released)
+                    .addComponent(lbl1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -241,8 +251,21 @@ public class Book_Description extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void borrow_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrow_btnActionPerformed
-        // TODO add your handling code here:
+    private void checkStatus() {
+        String status = book.getStatus().name();
+        
+        if(status.equals("AVAILABLE")) {
+            action_btn.setText("Borrow Book");
+            action_btn.setBackground(new Color(27,76,140));
+            this.bookStatus = "available";
+        } else {
+            action_btn.setText("Return Book");
+            action_btn.setBackground(new Color(0xD84040));
+            this.bookStatus = "borrowed";
+        }
+    }
+    
+    private void borrowBook() {
         String query = "INSERT INTO borrowed_books (student_id, book_id, borrowed_at, due_date) VALUES (?,?,?,?)";
         String updateStatus = "UPDATE books SET status = ? WHERE book_id = ?";
         try {
@@ -264,15 +287,44 @@ public class Book_Description extends javax.swing.JFrame {
             con.reconnect();
             this.dispose();
             Book_Model.resetBookList();
-            Home home = new Home();
-
+            currentFrame.dispose();
+            new Home();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Book_Description.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void returnBook() {
+        String query = "UPDATE borrowed_books SET returned_at = ? WHERE student_id = ? AND book_id = ?";
+        
+        try {
+            PreparedStatement ps = c.prepareStatement(query);
+            ps.setObject(1, LocalDateTime.now());
+            ps.setString(2, student_id);
+            ps.setInt(3, book.getBook_id());
+            ps.executeUpdate();
+            
+            con.reconnect();
+            JOptionPane.showMessageDialog(null, "Returned Successfully", "Book " + book.getTitle() + " was Returned!", JOptionPane.PLAIN_MESSAGE);
+            currentFrame.dispose();
+            Book_Model.resetBookList();
+            new My_Books();
             
         } catch (SQLException ex) {
             Logger.getLogger(Book_Description.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        
-    }//GEN-LAST:event_borrow_btnActionPerformed
+    }
+    
+    private void action_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_action_btnActionPerformed
+        if(this.bookStatus.equalsIgnoreCase("available")) {
+            borrowBook();
+        } else if(this.bookStatus.equalsIgnoreCase("borrowed")) {
+            returnBook();
+        }
+
+    }//GEN-LAST:event_action_btnActionPerformed
 
     private void favorite_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_favorite_btnActionPerformed
         // TODO add your handling code here:
@@ -289,13 +341,18 @@ public class Book_Description extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_favorite_btnActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton action_btn;
     private javax.swing.JLabel book_author;
     private javax.swing.JLabel book_img;
     private javax.swing.JLabel book_overview;
     private javax.swing.JLabel book_released;
     private javax.swing.JLabel book_title;
-    private javax.swing.JButton borrow_btn;
     private javax.swing.JButton favorite_btn;
     private javax.swing.JButton jButton1;
     private javax.swing.JLayeredPane jLayeredPane1;

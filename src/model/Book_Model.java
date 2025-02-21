@@ -16,6 +16,20 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 
 public class Book_Model {
+
+    /**
+     * @return the status
+     */
+    public Book_Status getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(Book_Status status) {
+        this.status = status;
+    }
     public String getOverview() {
         return overview;
     }
