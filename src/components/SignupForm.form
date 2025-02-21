@@ -143,7 +143,7 @@
           <Font name="Segoe UI" size="22" style="1"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="a2" green="4b" red="76" type="rgb"/>
+          <Color blue="8c" green="4c" red="1b" type="rgb"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="IT242 Library"/>

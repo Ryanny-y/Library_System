@@ -40,65 +40,52 @@ public class Book_Description extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelBorder1 = new swing.PanelBorder();
-        close_btn = new javax.swing.JButton();
-        book_img = new javax.swing.JLabel();
-        lblTitle = new javax.swing.JLabel();
+        shadowPane1 = new swing.ShadowPane();
+        jLayeredPane1 = new javax.swing.JLayeredPane();
+        lbl1 = new javax.swing.JLabel();
         book_title = new javax.swing.JLabel();
-        lblTitle1 = new javax.swing.JLabel();
-        book_overview = new javax.swing.JLabel();
-        lblTitle2 = new javax.swing.JLabel();
+        lbl2 = new javax.swing.JLabel();
         book_author = new javax.swing.JLabel();
-        lblTitle3 = new javax.swing.JLabel();
-        book_released = new javax.swing.JLabel();
+        lbl3 = new javax.swing.JLabel();
+        book_overview = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        book_img = new javax.swing.JLabel();
         borrow_btn = new javax.swing.JButton();
         favorite_btn = new javax.swing.JButton();
+        lbl4 = new javax.swing.JLabel();
+        book_released = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
 
-        close_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/close.png"))); // NOI18N
-        close_btn.setBorder(null);
-        close_btn.setBorderPainted(false);
-        close_btn.setContentAreaFilled(false);
-        close_btn.setFocusable(false);
-        close_btn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                close_btnActionPerformed(evt);
-            }
-        });
+        lbl1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lbl1.setForeground(new java.awt.Color(51, 51, 51));
+        lbl1.setText("Title");
 
-        book_img.setBackground(new java.awt.Color(255, 0, 0));
-        book_img.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        book_img.setPreferredSize(new java.awt.Dimension(200, 270));
+        book_title.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        book_title.setText("Title Here");
 
-        lblTitle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblTitle.setForeground(new java.awt.Color(102, 102, 102));
-        lblTitle.setText("Title");
+        lbl2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lbl2.setForeground(new java.awt.Color(51, 51, 51));
+        lbl2.setText("Author");
 
-        book_title.setText("Title here");
+        book_author.setText("Author Here");
 
-        lblTitle1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblTitle1.setForeground(new java.awt.Color(102, 102, 102));
-        lblTitle1.setText("Author");
+        lbl3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lbl3.setForeground(new java.awt.Color(51, 51, 51));
+        lbl3.setText("Overview");
 
-        book_overview.setText("sdadadadasdsadasdsadasda");
+        book_overview.setText("Overview Here");
 
-        lblTitle2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblTitle2.setForeground(new java.awt.Color(102, 102, 102));
-        lblTitle2.setText("Overview");
+        jPanel1.setBackground(new java.awt.Color(255, 51, 204));
+        jPanel1.setOpaque(false);
 
-        book_author.setText("Harry Potter");
-
-        lblTitle3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblTitle3.setForeground(new java.awt.Color(102, 102, 102));
-        lblTitle3.setText("Year Released");
-
-        book_released.setText("2024");
+        book_img.setPreferredSize(new java.awt.Dimension(215, 260));
 
         borrow_btn.setBackground(new java.awt.Color(27, 76, 140));
-        borrow_btn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        borrow_btn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         borrow_btn.setForeground(new java.awt.Color(255, 255, 255));
         borrow_btn.setText("Borrow Book");
         borrow_btn.setBorder(null);
@@ -112,7 +99,6 @@ public class Book_Description extends javax.swing.JFrame {
         });
 
         favorite_btn.setBackground(new java.awt.Color(204, 204, 0));
-        favorite_btn.setForeground(new java.awt.Color(255, 255, 255));
         favorite_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Favorites-Current.png"))); // NOI18N
         favorite_btn.setBorder(null);
         favorite_btn.setBorderPainted(false);
@@ -124,85 +110,136 @@ public class Book_Description extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
-        panelBorder1.setLayout(panelBorder1Layout);
-        panelBorder1Layout.setHorizontalGroup(
-            panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBorder1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(close_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(panelBorder1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(panelBorder1Layout.createSequentialGroup()
-                        .addComponent(borrow_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(favorite_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
-                    .addComponent(book_img, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(27, 27, 27)
-                .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(book_title)
-                    .addComponent(lblTitle)
-                    .addComponent(lblTitle1)
-                    .addComponent(lblTitle2)
-                    .addComponent(book_author)
-                    .addComponent(lblTitle3)
-                    .addComponent(book_released)
-                    .addComponent(book_overview, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(23, Short.MAX_VALUE))
-        );
-        panelBorder1Layout.setVerticalGroup(
-            panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBorder1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(close_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
-                .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelBorder1Layout.createSequentialGroup()
-                        .addComponent(lblTitle)
+                .addComponent(borrow_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(favorite_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(23, Short.MAX_VALUE)
+                .addComponent(book_img, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(book_img, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(favorite_btn, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                    .addComponent(borrow_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        lbl4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lbl4.setForeground(new java.awt.Color(51, 51, 51));
+        lbl4.setText("Year published");
+
+        book_released.setText("Overview Here");
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/close.png"))); // NOI18N
+        jButton1.setBorder(null);
+        jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
+        jButton1.setFocusPainted(false);
+        jButton1.setFocusable(false);
+
+        jLayeredPane1.setLayer(lbl1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(book_title, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(lbl2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(book_author, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(lbl3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(book_overview, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(lbl4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(book_released, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
+        jLayeredPane1.setLayout(jLayeredPane1Layout);
+        jLayeredPane1Layout.setHorizontalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(book_title)
+                            .addComponent(lbl2)
+                            .addComponent(book_author)
+                            .addComponent(lbl3)
+                            .addComponent(book_overview)
+                            .addComponent(lbl4)
+                            .addComponent(book_released))
+                        .addContainerGap(103, Short.MAX_VALUE))
+                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                        .addComponent(lbl1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17))
+        );
+        jLayeredPane1Layout.setVerticalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
+                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                        .addComponent(lbl1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(book_title)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblTitle2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(book_overview)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbl2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(book_author)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblTitle3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbl3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(book_released))
-                    .addComponent(book_img, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(borrow_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(favorite_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(40, Short.MAX_VALUE))
+                        .addComponent(book_overview)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbl4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(book_released)))
+                .addContainerGap(37, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout shadowPane1Layout = new javax.swing.GroupLayout(shadowPane1);
+        shadowPane1.setLayout(shadowPane1Layout);
+        shadowPane1Layout.setHorizontalGroup(
+            shadowPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLayeredPane1)
+        );
+        shadowPane1Layout.setVerticalGroup(
+            shadowPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLayeredPane1)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelBorder1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(shadowPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(shadowPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void close_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_close_btnActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_close_btnActionPerformed
 
     private void borrow_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrow_btnActionPerformed
         // TODO add your handling code here:
@@ -234,6 +271,7 @@ public class Book_Description extends javax.swing.JFrame {
             Logger.getLogger(Book_Description.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        
     }//GEN-LAST:event_borrow_btnActionPerformed
 
     private void favorite_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_favorite_btnActionPerformed
@@ -258,12 +296,14 @@ public class Book_Description extends javax.swing.JFrame {
     private javax.swing.JLabel book_released;
     private javax.swing.JLabel book_title;
     private javax.swing.JButton borrow_btn;
-    private javax.swing.JButton close_btn;
     private javax.swing.JButton favorite_btn;
-    private javax.swing.JLabel lblTitle;
-    private javax.swing.JLabel lblTitle1;
-    private javax.swing.JLabel lblTitle2;
-    private javax.swing.JLabel lblTitle3;
-    private swing.PanelBorder panelBorder1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLayeredPane jLayeredPane1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lbl1;
+    private javax.swing.JLabel lbl2;
+    private javax.swing.JLabel lbl3;
+    private javax.swing.JLabel lbl4;
+    private swing.ShadowPane shadowPane1;
     // End of variables declaration//GEN-END:variables
 }

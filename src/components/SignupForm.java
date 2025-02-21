@@ -73,7 +73,7 @@ public class SignupForm extends javax.swing.JPanel implements ActionListener{
         icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Logo.png"))); // NOI18N
 
         Name.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
-        Name.setForeground(new java.awt.Color(118, 75, 162));
+        Name.setForeground(new java.awt.Color(27, 76, 140));
         Name.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Name.setText("IT242 Library");
 

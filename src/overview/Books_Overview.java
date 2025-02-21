@@ -9,7 +9,9 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import pages.Add_Book_Frame;
+import pages.Admin.Admin_Books;
 
 public class Books_Overview extends javax.swing.JPanel {
 
@@ -144,7 +146,11 @@ public class Books_Overview extends javax.swing.JPanel {
     
     private void add_book_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_book_btnActionPerformed
         System.out.println("Clicked");
-        new Add_Book_Frame();
+        Admin_Books topFrame = (Admin_Books) javax.swing.SwingUtilities.getWindowAncestor(this);
+        if(topFrame != null) {
+            new Add_Book_Frame(topFrame);
+        }
+        
     }//GEN-LAST:event_add_book_btnActionPerformed
 
 

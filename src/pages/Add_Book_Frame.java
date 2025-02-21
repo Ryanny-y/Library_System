@@ -13,12 +13,21 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import pages.Admin.Admin_Books;
 
 public class Add_Book_Frame extends javax.swing.JFrame implements ActionListener{
 
     ConnDB con = ConnDB.getInstance();;
     Connection c = con.getConnection();
+    
+    Admin_Books frame;
+    private String cover_img;
     
     public Add_Book_Frame() {
         initComponents();
@@ -26,7 +35,19 @@ public class Add_Book_Frame extends javax.swing.JFrame implements ActionListener
         setVisible(true);
         file_btn.addActionListener(this);
         close_btn.addActionListener(this);
+        add_book_btn.addActionListener(this);
     }
+    
+    public Add_Book_Frame(Admin_Books frame) {
+        initComponents();
+        this.frame = frame;
+        setBackground(new Color(0,0,0,0));
+        setVisible(true);
+        file_btn.addActionListener(this);
+        close_btn.addActionListener(this);
+        add_book_btn.addActionListener(this);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -34,17 +55,18 @@ public class Add_Book_Frame extends javax.swing.JFrame implements ActionListener
         panelBorder1 = new swing.PanelBorder();
         header = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        title_lbl = new javax.swing.JTextField();
+        title_field = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        author_lbl = new javax.swing.JTextField();
+        author_field = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        overview_lbl = new javax.swing.JTextArea();
+        overview_field = new javax.swing.JTextArea();
         jLabel5 = new javax.swing.JLabel();
-        year_published_lbl = new javax.swing.JTextField();
+        year_published_field = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         file_btn = new javax.swing.JButton();
         close_btn = new javax.swing.JButton();
+        add_book_btn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -58,11 +80,11 @@ public class Add_Book_Frame extends javax.swing.JFrame implements ActionListener
         jLabel1.setForeground(new java.awt.Color(51, 51, 51));
         jLabel1.setText("Title");
 
-        title_lbl.setBackground(new java.awt.Color(230, 230, 230));
-        title_lbl.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
-        title_lbl.addActionListener(new java.awt.event.ActionListener() {
+        title_field.setBackground(new java.awt.Color(230, 230, 230));
+        title_field.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
+        title_field.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                title_lblActionPerformed(evt);
+                title_fieldActionPerformed(evt);
             }
         });
 
@@ -70,11 +92,11 @@ public class Add_Book_Frame extends javax.swing.JFrame implements ActionListener
         jLabel2.setForeground(new java.awt.Color(51, 51, 51));
         jLabel2.setText("Author");
 
-        author_lbl.setBackground(new java.awt.Color(230, 230, 230));
-        author_lbl.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
-        author_lbl.addActionListener(new java.awt.event.ActionListener() {
+        author_field.setBackground(new java.awt.Color(230, 230, 230));
+        author_field.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
+        author_field.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                author_lblActionPerformed(evt);
+                author_fieldActionPerformed(evt);
             }
         });
 
@@ -84,21 +106,23 @@ public class Add_Book_Frame extends javax.swing.JFrame implements ActionListener
 
         jScrollPane1.setBorder(null);
 
-        overview_lbl.setBackground(new java.awt.Color(230, 230, 230));
-        overview_lbl.setColumns(20);
-        overview_lbl.setRows(5);
-        overview_lbl.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
-        jScrollPane1.setViewportView(overview_lbl);
+        overview_field.setBackground(new java.awt.Color(230, 230, 230));
+        overview_field.setColumns(20);
+        overview_field.setLineWrap(true);
+        overview_field.setRows(5);
+        overview_field.setWrapStyleWord(true);
+        overview_field.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
+        jScrollPane1.setViewportView(overview_field);
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(51, 51, 51));
         jLabel5.setText("Year Published");
 
-        year_published_lbl.setBackground(new java.awt.Color(230, 230, 230));
-        year_published_lbl.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
-        year_published_lbl.addActionListener(new java.awt.event.ActionListener() {
+        year_published_field.setBackground(new java.awt.Color(230, 230, 230));
+        year_published_field.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
+        year_published_field.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                year_published_lblActionPerformed(evt);
+                year_published_fieldActionPerformed(evt);
             }
         });
 
@@ -122,6 +146,15 @@ public class Add_Book_Frame extends javax.swing.JFrame implements ActionListener
         close_btn.setFocusPainted(false);
         close_btn.setFocusable(false);
 
+        add_book_btn.setBackground(new java.awt.Color(27, 76, 140));
+        add_book_btn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        add_book_btn.setForeground(new java.awt.Color(255, 255, 255));
+        add_book_btn.setText("Add Book");
+        add_book_btn.setBorder(null);
+        add_book_btn.setBorderPainted(false);
+        add_book_btn.setFocusPainted(false);
+        add_book_btn.setFocusable(false);
+
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);
         panelBorder1Layout.setHorizontalGroup(
@@ -133,23 +166,28 @@ public class Add_Book_Frame extends javax.swing.JFrame implements ActionListener
                 .addComponent(close_btn)
                 .addGap(14, 14, 14))
             .addGroup(panelBorder1Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
                 .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel4)
-                        .addComponent(jLabel2)
-                        .addComponent(author_lbl, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addComponent(title_lbl)
-                        .addComponent(jScrollPane1))
                     .addGroup(panelBorder1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
                         .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(year_published_lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(51, 51, 51)
-                        .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(file_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel2)
+                                .addComponent(author_field, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
+                                .addComponent(jLabel1)
+                                .addComponent(title_field)
+                                .addComponent(jScrollPane1))
+                            .addGroup(panelBorder1Layout.createSequentialGroup()
+                                .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(year_published_field, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(51, 51, 51)
+                                .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(file_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(panelBorder1Layout.createSequentialGroup()
+                        .addGap(172, 172, 172)
+                        .addComponent(add_book_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         panelBorder1Layout.setVerticalGroup(
@@ -162,11 +200,11 @@ public class Add_Book_Frame extends javax.swing.JFrame implements ActionListener
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(title_lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(title_field, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(author_lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(author_field, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -178,8 +216,10 @@ public class Add_Book_Frame extends javax.swing.JFrame implements ActionListener
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(file_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(year_published_lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(27, Short.MAX_VALUE))
+                    .addComponent(year_published_field, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(add_book_btn, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -190,24 +230,27 @@ public class Add_Book_Frame extends javax.swing.JFrame implements ActionListener
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void title_lblActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_title_lblActionPerformed
+    private void title_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_title_fieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_title_lblActionPerformed
+    }//GEN-LAST:event_title_fieldActionPerformed
 
-    private void author_lblActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_author_lblActionPerformed
+    private void author_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_author_fieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_author_lblActionPerformed
+    }//GEN-LAST:event_author_fieldActionPerformed
 
-    private void year_published_lblActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_year_published_lblActionPerformed
+    private void year_published_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_year_published_fieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_year_published_lblActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_year_published_fieldActionPerformed
 
     private void getFile() {
         JFileChooser fileChooser = new JFileChooser();
@@ -215,6 +258,7 @@ public class Add_Book_Frame extends javax.swing.JFrame implements ActionListener
         
         if(result == JFileChooser.APPROVE_OPTION) {
             File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
+            cover_img = file.getName();
             
             JFileChooser folderChooser = new JFileChooser();
             folderChooser.setCurrentDirectory(new File(".\\src\\images\\Books"));
@@ -247,9 +291,27 @@ public class Add_Book_Frame extends javax.swing.JFrame implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == file_btn) {
-            String query = "INSERT INTO (title, author, overview, year_published, cover_img) books VALUES (?,?,?,?,?)";
-            
             getFile();
+        }
+        
+        if(e.getSource() == add_book_btn) {
+            String query = "INSERT INTO books (title, author, overview, year_published, cover_img) VALUES (?,?,?,?,?)";
+
+            try {
+                PreparedStatement sp = c.prepareStatement(query);
+                sp.setString(1, title_field.getText());
+                sp.setString(2, author_field.getText());
+                sp.setString(3, overview_field.getText());
+                sp.setInt(4, Integer.parseInt(year_published_field.getText()));
+                sp.setString(5, cover_img);
+                sp.executeUpdate();
+                
+                JOptionPane.showMessageDialog(null, "Added Successfully", "New Book Added!", JOptionPane.PLAIN_MESSAGE);
+                this.frame.dispose();
+                new Admin_Books();
+            } catch (SQLException ex) {
+                Logger.getLogger(Add_Book_Frame.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         if(e.getSource() == close_btn) {
@@ -268,7 +330,8 @@ public class Add_Book_Frame extends javax.swing.JFrame implements ActionListener
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField author_lbl;
+    private javax.swing.JButton add_book_btn;
+    private javax.swing.JTextField author_field;
     private javax.swing.JButton close_btn;
     private javax.swing.JButton file_btn;
     private javax.swing.JLabel header;
@@ -278,9 +341,9 @@ public class Add_Book_Frame extends javax.swing.JFrame implements ActionListener
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea overview_lbl;
+    private javax.swing.JTextArea overview_field;
     private swing.PanelBorder panelBorder1;
-    private javax.swing.JTextField title_lbl;
-    private javax.swing.JTextField year_published_lbl;
+    private javax.swing.JTextField title_field;
+    private javax.swing.JTextField year_published_field;
     // End of variables declaration//GEN-END:variables
 }
