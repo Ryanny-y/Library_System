@@ -24,8 +24,8 @@ public class Books_Overview extends javax.swing.JPanel {
         setBackground(new Color(0,0,0,0));
         addRows();
         
-        table.getColumnModel().getColumn(6).setCellRenderer(new TableActionCellRender());
-        table.getColumnModel().getColumn(6).setCellEditor(new TableActionCellEditor());
+        table.getColumnModel().getColumn(5).setCellRenderer(new TableActionCellRender());
+        table.getColumnModel().getColumn(5).setCellEditor(new TableActionCellEditor());
     }
     
     
@@ -35,7 +35,7 @@ public class Books_Overview extends javax.swing.JPanel {
             return;
         }
         
-        String query = "SELECT * FROM books LEFT JOIN borrowed_books AS bb ON books.book_id = bb.book_id";
+        String query = "SELECT * FROM books";
          try {
             PreparedStatement ps = c.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
@@ -44,10 +44,9 @@ public class Books_Overview extends javax.swing.JPanel {
                 String title = rs.getString("title");
                 String author = rs.getString("author");
                 String status = rs.getString("status");
-                String student_id = rs.getString("student_id") == null ? "" : "";
                 LocalDateTime added_at = rs.getObject("created_at", LocalDateTime.class);
                 
-                table.addRow(new Object[]{book_id, title, author, status, student_id, added_at});
+                table.addRow(new Object[]{book_id, title, author, status, added_at});
             }
         } catch (SQLException ex) {
             Logger.getLogger(Dashboard_Overview.class.getName()).log(Level.SEVERE, null, ex);
@@ -91,11 +90,11 @@ public class Books_Overview extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Id", "Title", "Author", "Status", "Borrower", "Added At", "Actions"
+                "Id", "Title", "Author", "Status", "Borrower", "Actions"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true
+                false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

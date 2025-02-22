@@ -23,8 +23,6 @@ public class TableActionCellEditor extends DefaultCellEditor {
         
         PanelAction action = new PanelAction(status, book_id);
         
-        
-//        action.initEvent(event, row);
         action.setBackground(new Color(0,0,0,0));
         return action;
     }

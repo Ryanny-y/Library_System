@@ -295,7 +295,6 @@ public class LoginForm extends javax.swing.JPanel implements ActionListener {
                         
                         if (user.getRole() == User_Role.USER) {
                             new Home();
-                            Current_User.setUser_Id(student_id);
                             topFrame.dispose();
                         } else if (user.getRole() == User_Role.ADMIN) {
                             new Admin_Dashboard();

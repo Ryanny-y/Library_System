@@ -19,14 +19,14 @@ public class PanelAction extends javax.swing.JPanel {
     
     ConnDB con = ConnDB.getInstance();
     Connection c = con.getConnection();
-    String student_id = Current_User.getCurrentUser().getStudent_id();
     JFrame currentFrame;
+    private String student_id = Current_User.getCurrentUser().getStudent_id();
     private int book_id;
+    
     
     public PanelAction(String status, int book_id) {
         initComponents();
         this.book_id = book_id;
-        
         setOpaque(false);
     }
     
@@ -39,12 +39,10 @@ public class PanelAction extends javax.swing.JPanel {
     public PanelAction(String status) {
         initComponents();
         
-        if(status.equalsIgnoreCase("AVAILABLE")) {
-//            approve_btn.setVisible(false);
-//            reject_btn.setVisible(false);
+        if(!status.equalsIgnoreCase("REQUEST")) {
             this.remove(approve_btn);
             this.remove(reject_btn);
-        }
+        } 
         
         setOpaque(false);
     }
@@ -95,7 +93,7 @@ public class PanelAction extends javax.swing.JPanel {
             
             if(rs.next()) {
                 PreparedStatement ps2 = c.prepareStatement(updateQuery);
-                ps2.setString(1, Current_User.getUser_Id());
+                ps2.setString(1, student_id);
                 ps2.setInt(2, rs.getInt("book_id"));
                 LocalDateTime borrowed_at = LocalDateTime.now();
                 ps2.setObject(3, borrowed_at);
@@ -108,7 +106,7 @@ public class PanelAction extends javax.swing.JPanel {
                 ps3.setInt(2, book_id);
                 ps3.executeUpdate();
                 
-                JOptionPane.showConfirmDialog(null, "Borrow Request has been approved!", "Request Approved!", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Borrow Request has been approved!", "Request Approved!", JOptionPane.PLAIN_MESSAGE);
             }
             
 
