@@ -86,7 +86,7 @@ public class Dashboard_Overview extends javax.swing.JPanel {
         panelBorder1 = new swing.PanelBorder();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        table = new swing.Table();
+        table = new swing.table.Table();
 
         jLayeredPane1.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
         jLayeredPane1.add(card1);
@@ -168,6 +168,6 @@ public class Dashboard_Overview extends javax.swing.JPanel {
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JScrollPane jScrollPane1;
     private swing.PanelBorder panelBorder1;
-    private swing.Table table;
+    private swing.table.Table table;
     // End of variables declaration//GEN-END:variables
 }

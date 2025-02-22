@@ -28,7 +28,7 @@ public class My_Books extends javax.swing.JFrame {
     }
     
     private void bookInit() {
-        String query = "SELECT * FROM borrowed_books INNER JOIN books ON borrowed_books.book_id = books.book_id WHERE borrowed_books.returned_at IS NULL";
+        String query = "SELECT * FROM borrowed_books INNER JOIN books ON borrowed_books.book_id = books.book_id WHERE borrowed_books.returned_at IS NULL ";
         Book_Model bookModel = new Book_Model();
         bookModel.getBooks(query);
         

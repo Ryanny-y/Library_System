@@ -2,16 +2,12 @@ package pages.User;
 
 import config.ConnDB;
 import java.awt.Color;
-import java.awt.Image;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import model.Book_Model;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -274,7 +270,7 @@ public class Book_Description extends javax.swing.JFrame {
             ps2.setInt(2, book.getBook_id());
             ps2.executeUpdate();
             
-            JOptionPane.showMessageDialog(null, "Borrowed books", "Borrowed!", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Borrow Request Sent!", "Borrow Request", JOptionPane.PLAIN_MESSAGE);
             con.reconnect();
             this.dispose();
             Book_Model.resetBookList();
@@ -287,14 +283,22 @@ public class Book_Description extends javax.swing.JFrame {
     }
     
     private void returnBook() {
-        String query = "UPDATE borrowed_books SET returned_at = ? WHERE student_id = ? AND book_id = ?";
+        String query = "UPDATE borrowed_books SET returned_at = ? WHERE student_id = ? AND book_id = ? AND returned_at IS NULL";
+        String statusQuery = "UPDATE books SET status = ? WHERE book_id = ?";
         
         try {
             PreparedStatement ps = c.prepareStatement(query);
             ps.setObject(1, LocalDateTime.now());
+            System.out.println(student_id + " " + book.getBook_id());
             ps.setString(2, student_id);
             ps.setInt(3, book.getBook_id());
-            ps.executeUpdate();
+            int rs = ps.executeUpdate();
+            System.out.println(rs);
+            
+            PreparedStatement ps2 = c.prepareStatement(statusQuery);
+            ps2.setString(1, "RETURNED");
+            ps2.setInt(2, book.getBook_id());
+            ps2.executeUpdate();
             
             con.reconnect();
             JOptionPane.showMessageDialog(null, "Returned Successfully", "Book " + book.getTitle() + " was Returned!", JOptionPane.PLAIN_MESSAGE);

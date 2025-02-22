@@ -1,5 +1,6 @@
-package swing;
+package swing.table;
 
+import swing.table.TableHeader;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -7,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import swing.PanelAction;
 
 public class BookListTable extends JTable {
     
@@ -37,14 +39,15 @@ public class BookListTable extends JTable {
                     JLabel label = new JLabel(strValue);
                     Color foreground = new Color(46, 204, 113);
                     
-                    
                     if(strValue.equalsIgnoreCase("AVAILABLE")) {
                         foreground = new Color(46, 204, 113);
                     } else if(strValue.equalsIgnoreCase("BORROWED")) {
                         foreground = new Color(230, 126, 34);
                     } else if(strValue.equalsIgnoreCase("RETURNED")) {
                         foreground = new Color(52, 152, 219);
-                    } 
+                    } else {
+                        foreground = new Color(0xFFB200);
+                    }
                     
                     if(isSelected) {
                         label.setForeground(new Color(27,76,140));

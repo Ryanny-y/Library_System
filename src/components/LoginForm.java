@@ -295,6 +295,7 @@ public class LoginForm extends javax.swing.JPanel implements ActionListener {
                         
                         if (user.getRole() == User_Role.USER) {
                             new Home();
+                            Current_User.setUser_Id(student_id);
                             topFrame.dispose();
                         } else if (user.getRole() == User_Role.ADMIN) {
                             new Admin_Dashboard();
@@ -304,7 +305,7 @@ public class LoginForm extends javax.swing.JPanel implements ActionListener {
                             topFrame.dispose();
                         }
                     } else {
-                        JOptionPane.showMessageDialog(null, "User " + email + " not found.", "User Not Found", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Username or password is incorrect.", "User Not Found", JOptionPane.ERROR_MESSAGE);
                     }
                 } catch (SQLException ex) {
                     Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);

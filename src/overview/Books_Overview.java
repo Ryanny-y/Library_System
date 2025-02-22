@@ -9,11 +9,10 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultCellEditor;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import pages.Add_Book_Frame;
 import pages.Admin.Admin_Books;
+import swing.table.TableActionCellEditor;
+import swing.table.TableActionCellRender;
 
 public class Books_Overview extends javax.swing.JPanel {
 
@@ -25,7 +24,10 @@ public class Books_Overview extends javax.swing.JPanel {
         setBackground(new Color(0,0,0,0));
         addRows();
         
+        table.getColumnModel().getColumn(6).setCellRenderer(new TableActionCellRender());
+        table.getColumnModel().getColumn(6).setCellEditor(new TableActionCellEditor());
     }
+    
     
     private void addRows() {
         if (c == null) {
@@ -33,7 +35,7 @@ public class Books_Overview extends javax.swing.JPanel {
             return;
         }
         
-        String query = "SELECT * FROm books";
+        String query = "SELECT * FROM books LEFT JOIN borrowed_books AS bb ON books.book_id = bb.book_id";
          try {
             PreparedStatement ps = c.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
@@ -42,9 +44,10 @@ public class Books_Overview extends javax.swing.JPanel {
                 String title = rs.getString("title");
                 String author = rs.getString("author");
                 String status = rs.getString("status");
+                String student_id = rs.getString("student_id") == null ? "" : "";
                 LocalDateTime added_at = rs.getObject("created_at", LocalDateTime.class);
                 
-                table.addRow(new Object[]{book_id, title, author, status, added_at});
+                table.addRow(new Object[]{book_id, title, author, status, student_id, added_at});
             }
         } catch (SQLException ex) {
             Logger.getLogger(Dashboard_Overview.class.getName()).log(Level.SEVERE, null, ex);
@@ -60,7 +63,7 @@ public class Books_Overview extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         add_book_btn = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        table = new swing.BookListTable();
+        table = new swing.table.BookListTable();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(27, 76, 140));
@@ -88,11 +91,11 @@ public class Books_Overview extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Id", "Title", "Author", "Status", "Added At", "Actions"
+                "Id", "Title", "Author", "Status", "Borrower", "Added At", "Actions"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -162,6 +165,6 @@ public class Books_Overview extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     private swing.PanelBorder panelBorder2;
-    private swing.BookListTable table;
+    private swing.table.BookListTable table;
     // End of variables declaration//GEN-END:variables
 }
