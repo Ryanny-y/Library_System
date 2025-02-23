@@ -12,11 +12,7 @@ import model.User_Model;
 import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-//import java.sql
-
-
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import model.Current_User;
 import pages.Notification;
@@ -63,14 +59,10 @@ public class Home extends javax.swing.JFrame {
             if(favorites_list.size() > 0 && (calledNotif == false)) {
                 new Thread(() -> {
                     try {
-                        // Sleep for 3 seconds (3000 milliseconds)
                         Thread.sleep(3000);
 
-                        // Your original logic after the delay
-                        if (favorites_list.size() > 0) {
-                            new Notification(favorites_list);
-                            calledNotif = true;
-                        }
+                        new Notification(favorites_list);
+                        calledNotif = true;
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

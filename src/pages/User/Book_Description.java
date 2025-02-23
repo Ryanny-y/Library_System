@@ -61,28 +61,30 @@ public class Book_Description extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(500, 400));
         setResizable(false);
 
         shadowPane1.setPreferredSize(new java.awt.Dimension(500, 500));
 
         lbl1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbl1.setForeground(new java.awt.Color(51, 51, 51));
+        lbl1.setForeground(new java.awt.Color(255, 255, 255));
         lbl1.setText("Title");
 
         book_title.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        book_title.setForeground(new java.awt.Color(255, 255, 255));
         book_title.setText("Title Here");
 
         lbl2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbl2.setForeground(new java.awt.Color(51, 51, 51));
+        lbl2.setForeground(new java.awt.Color(255, 255, 255));
         lbl2.setText("Author");
 
+        book_author.setForeground(new java.awt.Color(255, 255, 255));
         book_author.setText("Author Here");
 
         lbl3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbl3.setForeground(new java.awt.Color(51, 51, 51));
+        lbl3.setForeground(new java.awt.Color(255, 255, 255));
         lbl3.setText("Overview");
 
+        book_overview.setForeground(new java.awt.Color(255, 255, 255));
         book_overview.setText("Overview Here");
 
         jPanel1.setBackground(new java.awt.Color(255, 51, 204));
@@ -90,14 +92,14 @@ public class Book_Description extends javax.swing.JFrame {
 
         book_img.setPreferredSize(new java.awt.Dimension(215, 260));
 
-        action_btn.setBackground(new java.awt.Color(27, 76, 140));
         action_btn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        action_btn.setForeground(new java.awt.Color(255, 255, 255));
+        action_btn.setForeground(new java.awt.Color(27, 76, 140));
         action_btn.setText("Borrow Book");
         action_btn.setBorder(null);
         action_btn.setBorderPainted(false);
         action_btn.setFocusPainted(false);
         action_btn.setFocusable(false);
+        action_btn.setOpaque(true);
         action_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 action_btnActionPerformed(evt);
@@ -144,12 +146,13 @@ public class Book_Description extends javax.swing.JFrame {
         );
 
         lbl4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbl4.setForeground(new java.awt.Color(51, 51, 51));
+        lbl4.setForeground(new java.awt.Color(255, 255, 255));
         lbl4.setText("Year published");
 
-        book_released.setText("Overview Here");
+        book_released.setForeground(new java.awt.Color(255, 255, 255));
+        book_released.setText("Year published");
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/close.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/close-white.png"))); // NOI18N
         jButton1.setBorder(null);
         jButton1.setBorderPainted(false);
         jButton1.setContentAreaFilled(false);
@@ -181,44 +184,49 @@ public class Book_Description extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(book_title)
-                    .addComponent(lbl2)
-                    .addComponent(book_author)
-                    .addComponent(lbl3)
-                    .addComponent(book_overview)
-                    .addComponent(lbl4)
-                    .addComponent(book_released)
-                    .addComponent(lbl1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17))
+                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(book_title)
+                            .addComponent(lbl2)
+                            .addComponent(book_author)
+                            .addComponent(lbl3)
+                            .addComponent(book_overview)
+                            .addComponent(lbl4)
+                            .addComponent(book_released))
+                        .addContainerGap(103, Short.MAX_VALUE))
+                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                        .addComponent(lbl1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15))))
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                        .addComponent(lbl1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(book_title)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lbl2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(book_author)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lbl3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(book_overview)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbl4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(book_released)))
+                        .addGap(42, 42, 42)
+                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                                .addComponent(lbl1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(book_title)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lbl2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(book_author)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lbl3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(book_overview)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lbl4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(book_released))))
+                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
 
@@ -241,7 +249,7 @@ public class Book_Description extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(shadowPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(shadowPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
         );
 
         pack();
@@ -253,7 +261,7 @@ public class Book_Description extends javax.swing.JFrame {
         
         if(status.equals("AVAILABLE")) {
             action_btn.setText("Borrow Book");
-            action_btn.setBackground(new Color(27,76,140));
+            action_btn.setBackground(new Color(255,255,255));
             this.bookStatus = "available";
         } else {
             action_btn.setText("Return Book");

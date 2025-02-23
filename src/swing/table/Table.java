@@ -31,22 +31,18 @@ public class Table extends JTable{
         setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                if(column != 4) {
-                   Component com =  super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
-                   com.setBackground(Color.WHITE);
-                   setBorder(noFocusBorder);
-                   
-                   if(isSelected) {
-                       com.setForeground(new Color(27,76,140));
-                       com.setFont(new Font("sansserif", 1, 12));
-                   } else {
-                       com.setForeground(new Color(102,102,102));
-                   }
-                   
-                   return com;
+                Component com =  super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+                com.setBackground(Color.WHITE);
+                setBorder(noFocusBorder);
+
+                if(isSelected) {
+                    com.setForeground(new Color(27,76,140));
+                    com.setFont(new Font("sansserif", 1, 12));
                 } else {
-                    return new JLabel("Delete");
+                    com.setForeground(new Color(102,102,102));
                 }
+
+                return com;
             }
         });
     }

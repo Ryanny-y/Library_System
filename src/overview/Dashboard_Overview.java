@@ -106,11 +106,11 @@ public class Dashboard_Overview extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Student Number", "Name", "Email", "Created at", "Actions"
+                "Student Number", "Name", "Email", "Created at"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

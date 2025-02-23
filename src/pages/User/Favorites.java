@@ -30,6 +30,11 @@ public class Favorites extends javax.swing.JFrame {
         if (!Book_Model.bookLists.isEmpty()) {
             BookContainer bookContainer = new BookContainer(Book_Model.bookLists);
             jScrollPane1.setViewportView(bookContainer);
+            jScrollPane1.getViewport().addChangeListener(e -> {
+                // Revalidate and repaint after the viewport changes (when scrolling)
+                jScrollPane1.revalidate();
+                jScrollPane1.repaint();
+            });
         } else {
             Logger.getLogger(Book_Model.class.getName()).log(Level.WARNING, "No books retrieved from the database.");
         }
