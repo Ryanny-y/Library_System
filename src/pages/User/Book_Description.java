@@ -262,6 +262,9 @@ public class Book_Description extends javax.swing.JFrame {
         }
     }
     
+//    Check if added to favorites
+    
+    
     private void borrowBook() {
         String updateStatus = "UPDATE books SET status = ?, borrowed_by = ? WHERE book_id = ?";
         try {

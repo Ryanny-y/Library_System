@@ -6,6 +6,7 @@ import pages.User.Home;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.List;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,7 +25,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.time.LocalDateTime;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import model.Book_Model;
 
 public class LoginForm extends javax.swing.JPanel implements ActionListener {
 
@@ -87,11 +90,6 @@ public class LoginForm extends javax.swing.JPanel implements ActionListener {
         email_field.setForeground(new java.awt.Color(51, 51, 51));
         email_field.setText("Enter Your Email");
         email_field.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 1));
-        email_field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                email_fieldActionPerformed(evt);
-            }
-        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
@@ -132,11 +130,6 @@ public class LoginForm extends javax.swing.JPanel implements ActionListener {
         password_field.setText("Enter Your Password");
         password_field.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 1));
         password_field.setPreferredSize(new java.awt.Dimension(123, 22));
-        password_field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                password_fieldActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -195,10 +188,6 @@ public class LoginForm extends javax.swing.JPanel implements ActionListener {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void email_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_email_fieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_email_fieldActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         JFrame topFrame = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
@@ -207,10 +196,6 @@ public class LoginForm extends javax.swing.JPanel implements ActionListener {
             new Sign_Up();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void password_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_password_fieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_password_fieldActionPerformed
 
     private void emailListener(JTextField field, String text) {
         field.addKeyListener(new KeyAdapter() {

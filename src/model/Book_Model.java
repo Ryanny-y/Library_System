@@ -206,6 +206,13 @@ public class Book_Model {
         this.created_at = (created_at != null) ? created_at : null;
     }
     
+    public Book_Model(String title, String author, String cover_img, int year_published) {
+        this.title = title;
+        this.author = author;
+        this.cover_img = cover_img;
+        this.year_published = year_published;
+    }
+    
     public Book_Model() {
         
     }
