@@ -8,6 +8,7 @@ import model.Current_User;
 import swing.AuthButton;
 import model.User_Model;
 import pages.Login;
+import pages.User.Home;
 
 public class Profile extends javax.swing.JFrame {
 
@@ -282,6 +283,7 @@ public class Profile extends javax.swing.JFrame {
             
         this.dispose();
         Book_Model.resetBookList();
+        Home.calledNotif = false;
         new Login();
     }//GEN-LAST:event_logoutBtnActionPerformed
 

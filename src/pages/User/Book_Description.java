@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import model.Current_User;
 
@@ -21,6 +22,7 @@ public class Book_Description extends javax.swing.JFrame {
     Connection c = con.getConnection();
     String student_id = Current_User.getCurrentUser().getStudent_id();
     private String bookStatus;
+    private boolean favorite;
     private JFrame currentFrame;
     
     public Book_Description(Book_Model book, JFrame frame) {
@@ -28,7 +30,6 @@ public class Book_Description extends javax.swing.JFrame {
         setVisible(true);
         this.book = book;
         this.currentFrame = frame;
-        System.out.println(frame.getClass().getSimpleName());
         book_title.setText(book.getTitle());
         book_overview.setText("<html>" + book.getOverview() + "</html>");
         book_author.setText(book.getAuthor());
@@ -36,6 +37,7 @@ public class Book_Description extends javax.swing.JFrame {
         book_img.setIcon(book.toIcon(book_img, book));
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         checkStatus();
+        checkFavorites();
     }
 
 
@@ -271,7 +273,26 @@ public class Book_Description extends javax.swing.JFrame {
     }
     
 //    Check if added to favorites
-    
+    private void checkFavorites() {
+        String query = "SELECT * FROM favorites_books WHERE book_id = ? AND student_id = ?";
+        
+        try {
+            PreparedStatement ps = c.prepareStatement(query);
+            ps.setInt(1, book.getBook_id());
+            ps.setString(2, student_id);
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next()) {
+                this.favorite_btn.setIcon(new ImageIcon(getClass().getResource("/images/" + "unlike.png")));
+                favorite = true;
+            } else {
+                this.favorite_btn.setIcon(new ImageIcon(getClass().getResource("/images/" + "Favorites-Current.png")));
+                favorite = false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Book_Description.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     private void borrowBook() {
         String updateStatus = "UPDATE books SET status = ?, borrowed_by = ? WHERE book_id = ?";
@@ -320,7 +341,7 @@ public class Book_Description extends javax.swing.JFrame {
             ps3.setInt(2, book.getBook_id());
             ps3.executeUpdate();
             
-            JOptionPane.showMessageDialog(null, "Returned Successfully", "Book " + book.getTitle() + " was Returned!", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Book " + book.getTitle() + " was Returned!", "Returned Successfully!", JOptionPane.PLAIN_MESSAGE);
             currentFrame.dispose();
             Book_Model.resetBookList();
             this.dispose();
@@ -343,17 +364,37 @@ public class Book_Description extends javax.swing.JFrame {
 
     private void favorite_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_favorite_btnActionPerformed
         // TODO add your handling code here:
-        System.out.println("Add to f");
-        String query = "INSERT INTO favorites_books (student_id, book_id) VALUES (?,?)";
-        try {
-            PreparedStatement ps = c.prepareStatement(query);
-            ps.setString(1, student_id);
-            ps.setInt(2, book.getBook_id());
-            ps.executeUpdate();
-            System.out.println("addded to favorties");
+        if(favorite) {
+            String deleteQuery = "DELETE FROM favorites_books WHERE student_id = ? AND book_Id = ?";
+            try {
+                PreparedStatement ps = c.prepareStatement(deleteQuery);
+                ps.setString(1, student_id);
+                ps.setInt(2, book.getBook_id());
+                ps.executeUpdate();
+                
+                JOptionPane.showMessageDialog(null, "Book " + book.getTitle() + " was removed to favorites!", "Remove to Favorites", JOptionPane.PLAIN_MESSAGE);
+                currentFrame.dispose();
+                Book_Model.resetBookList();
+                this.dispose();
+                new Favorites();
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(Book_Description.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
-        } catch (SQLException ex) {
-            Logger.getLogger(Book_Description.class.getName()).log(Level.SEVERE, null, ex);
+        } else {
+             String query = "INSERT INTO favorites_books (student_id, book_id) VALUES (?,?)";
+            try {
+                PreparedStatement ps = c.prepareStatement(query);
+                ps.setString(1, student_id);
+                ps.setInt(2, book.getBook_id());
+                ps.executeUpdate();
+                
+                JOptionPane.showMessageDialog(null, "Book " + book.getTitle() + " was added to favorites!", "Added to Favorites", JOptionPane.PLAIN_MESSAGE);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Book_Description.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_favorite_btnActionPerformed
 

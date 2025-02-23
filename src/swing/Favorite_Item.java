@@ -10,7 +10,6 @@ import model.Book_Model;
 public class Favorite_Item extends javax.swing.JPanel {
     public Favorite_Item(Book_Model data) {
         initComponents();
-        System.out.println("Fav item");
         setOpaque(false);
         img.setIcon(data.toIcon(img, data));
         title.setText("<html>" + data.getTitle() + "</html>");

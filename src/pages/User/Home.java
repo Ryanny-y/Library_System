@@ -22,7 +22,7 @@ public class Home extends javax.swing.JFrame {
     private ArrayList<Book_Model> favorites_list = new ArrayList<>();
     ConnDB con = ConnDB.getInstance();
     Connection c = con.getConnection();
-    private static boolean calledNotif = false;
+    public static boolean calledNotif = false;
     
     public Home() {
         initComponents();
@@ -38,11 +38,12 @@ public class Home extends javax.swing.JFrame {
     }
     
     private void renderNotification () {
-        String query = "SELECT b.title, b.author, b.cover_img, b.year_published FROM books AS b INNER JOIN favorites_books AS fb ON b.book_id = fb.book_id WHERE fb.student_id = ?";
+        String query = "SELECT b.title, b.author, b.cover_img, b.year_published FROM books AS b INNER JOIN favorites_books AS fb ON b.book_id = fb.book_id WHERE fb.student_id = ? AND status = ?";
         
         try {
             PreparedStatement ps = c.prepareStatement(query);
             ps.setString(1, Current_User.getCurrentUser().getStudent_id());
+            ps.setString(2, "AVAILABLE");
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()) {

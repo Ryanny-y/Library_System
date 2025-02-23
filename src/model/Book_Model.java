@@ -84,7 +84,7 @@ public class Book_Model {
     public void filterList(String search) {
         searchList.clear(); 
 
-        String query = "SELECT * FROM books WHERE title LIKE ?";
+        String query = "SELECT * FROM books WHERE title LIKE ? AND status = ?";
         ConnDB con = ConnDB.getInstance();
         Connection c = con.getConnection();
         
@@ -97,6 +97,7 @@ public class Book_Model {
         try {
             PreparedStatement ps = c.prepareStatement(query);
             ps.setString(1, "%" + search + "%"); // Allow partial matches
+            ps.setString(2, "AVAILABLE");
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
