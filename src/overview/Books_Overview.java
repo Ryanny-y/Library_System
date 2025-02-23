@@ -44,9 +44,13 @@ public class Books_Overview extends javax.swing.JPanel {
                 String title = rs.getString("title");
                 String author = rs.getString("author");
                 String status = rs.getString("status");
+                String borrowed_by = rs.getString("borrowed_by");
+                if(borrowed_by == null) {
+                    borrowed_by = "";
+                }
                 LocalDateTime added_at = rs.getObject("created_at", LocalDateTime.class);
                 
-                table.addRow(new Object[]{book_id, title, author, status, added_at});
+                table.addRow(new Object[]{book_id, title, author, status, borrowed_by, added_at});
             }
         } catch (SQLException ex) {
             Logger.getLogger(Dashboard_Overview.class.getName()).log(Level.SEVERE, null, ex);

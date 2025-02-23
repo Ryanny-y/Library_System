@@ -7,6 +7,7 @@ import model.Book_Model;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.ResultSet;
 import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -262,12 +263,13 @@ public class Book_Description extends javax.swing.JFrame {
     }
     
     private void borrowBook() {
-        String updateStatus = "UPDATE books SET status = ? WHERE book_id = ?";
+        String updateStatus = "UPDATE books SET status = ?, borrowed_by = ? WHERE book_id = ?";
         try {
             
             PreparedStatement ps2 = c.prepareStatement(updateStatus);
             ps2.setString(1, "REQUEST");
-            ps2.setInt(2, book.getBook_id());
+            ps2.setString(2, student_id);
+            ps2.setInt(3, book.getBook_id());
             ps2.executeUpdate();
             
             JOptionPane.showMessageDialog(null, "Borrow Request Sent!", "Borrow Request", JOptionPane.PLAIN_MESSAGE);
@@ -283,27 +285,34 @@ public class Book_Description extends javax.swing.JFrame {
     }
     
     private void returnBook() {
-        String query = "UPDATE borrowed_books SET returned_at = ? WHERE student_id = ? AND book_id = ? AND returned_at IS NULL";
+        String selectQuery = "SELECT borrowed_by FROM books WHERE book_id = ?";
+        String updateQuery = "UPDATE borrowed_books SET returned_at = ? WHERE student_id = ? AND book_id = ? AND returned_at IS NULL";
         String statusQuery = "UPDATE books SET status = ? WHERE book_id = ?";
         
+        String borrowed_by = null;
         try {
-            PreparedStatement ps = c.prepareStatement(query);
-            ps.setObject(1, LocalDateTime.now());
-            System.out.println(student_id + " " + book.getBook_id());
-            ps.setString(2, student_id);
-            ps.setInt(3, book.getBook_id());
-            int rs = ps.executeUpdate();
-            System.out.println(rs);
+            PreparedStatement ps = c.prepareStatement(selectQuery);
+            ps.setInt(1, book.getBook_id());
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                borrowed_by = rs.getString("borrowed_by");
+            }
             
-            PreparedStatement ps2 = c.prepareStatement(statusQuery);
-            ps2.setString(1, "RETURNED");
-            ps2.setInt(2, book.getBook_id());
+            PreparedStatement ps2 = c.prepareStatement(updateQuery);
+            ps2.setObject(1, LocalDateTime.now());
+            ps2.setString(2, borrowed_by);
+            ps2.setInt(3, book.getBook_id());
             ps2.executeUpdate();
             
-            con.reconnect();
+            PreparedStatement ps3 = c.prepareStatement(statusQuery);
+            ps3.setString(1, "RETURNED");
+            ps3.setInt(2, book.getBook_id());
+            ps3.executeUpdate();
+            
             JOptionPane.showMessageDialog(null, "Returned Successfully", "Book " + book.getTitle() + " was Returned!", JOptionPane.PLAIN_MESSAGE);
             currentFrame.dispose();
             Book_Model.resetBookList();
+            this.dispose();
             new My_Books();
             
         } catch (SQLException ex) {

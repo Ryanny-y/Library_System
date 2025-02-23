@@ -93,7 +93,7 @@ public class PanelAction extends javax.swing.JPanel {
             
             if(rs.next()) {
                 PreparedStatement ps2 = c.prepareStatement(updateQuery);
-                ps2.setString(1, student_id);
+                ps2.setString(1, rs.getString("borrowed_by"));
                 ps2.setInt(2, rs.getInt("book_id"));
                 LocalDateTime borrowed_at = LocalDateTime.now();
                 ps2.setObject(3, borrowed_at);
