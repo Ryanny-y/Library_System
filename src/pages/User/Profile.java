@@ -283,6 +283,7 @@ public class Profile extends javax.swing.JFrame {
             
         this.dispose();
         Book_Model.resetBookList();
+        User_Model.penaltyCalled = false;
         Home.calledNotif = false;
         new Login();
     }//GEN-LAST:event_logoutBtnActionPerformed

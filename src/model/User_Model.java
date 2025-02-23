@@ -108,7 +108,7 @@ public class User_Model {
         return User_Role.valueOf(dbRole);
     }
     
-    private static boolean penaltyCalled = false;
+    public static boolean penaltyCalled = false;
     public static void addPenalty() {
         if(!penaltyCalled) {
             addBookPenalty();
@@ -159,7 +159,6 @@ public class User_Model {
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
                 LocalDate dueDate = rs.getObject("due_date", LocalDate.class);
-                System.out.println(dueDate);
                 
                 LocalDate curDate = LocalDate.now();
                 long overdueDays = ChronoUnit.DAYS.between(dueDate, curDate);

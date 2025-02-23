@@ -113,7 +113,7 @@ public class LoginForm extends javax.swing.JPanel implements ActionListener {
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(27, 76, 140));
-        jButton1.setText("Login");
+        jButton1.setText("Sign up");
         jButton1.setBorder(null);
         jButton1.setBorderPainted(false);
         jButton1.setContentAreaFilled(false);
