@@ -159,6 +159,7 @@ public class User_Model {
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
                 LocalDate dueDate = rs.getObject("due_date", LocalDate.class);
+                System.out.println(dueDate);
                 
                 LocalDate curDate = LocalDate.now();
                 long overdueDays = ChronoUnit.DAYS.between(dueDate, curDate);

@@ -38,8 +38,10 @@ public class Favorite_Item extends javax.swing.JPanel {
         title.setForeground(new java.awt.Color(255, 255, 255));
         title.setText("Title Here");
 
+        author.setForeground(new java.awt.Color(255, 255, 255));
         author.setText("Author here");
 
+        published.setForeground(new java.awt.Color(255, 255, 255));
         published.setText("2020");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -51,7 +53,7 @@ public class Favorite_Item extends javax.swing.JPanel {
                 .addComponent(img, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+                    .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
                     .addComponent(author, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(published, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)

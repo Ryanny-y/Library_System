@@ -33,7 +33,7 @@
               <Component id="img" min="-2" pref="56" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="title" alignment="0" pref="220" max="32767" attributes="0"/>
+                  <Component id="title" alignment="0" pref="270" max="32767" attributes="0"/>
                   <Component id="author" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="published" min="-2" pref="63" max="-2" attributes="0"/>
@@ -87,11 +87,17 @@
     </Component>
     <Component class="javax.swing.JLabel" name="author">
       <Properties>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Author here"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="published">
       <Properties>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="2020"/>
       </Properties>
     </Component>

@@ -1,6 +1,5 @@
 package main;
 import pages.*;
-import config.ConnDB;
 
 public class Main {
     
