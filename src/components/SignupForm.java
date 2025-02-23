@@ -16,6 +16,7 @@ import config.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -88,11 +89,6 @@ public class SignupForm extends javax.swing.JPanel implements ActionListener{
         id_field.setForeground(new java.awt.Color(51, 51, 51));
         id_field.setText("Enter Your Student ID");
         id_field.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 1));
-        id_field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                id_fieldActionPerformed(evt);
-            }
-        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(102, 102, 102));
@@ -102,21 +98,11 @@ public class SignupForm extends javax.swing.JPanel implements ActionListener{
         firstname_field.setForeground(new java.awt.Color(51, 51, 51));
         firstname_field.setText("Enter Your First Name");
         firstname_field.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 1));
-        firstname_field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                firstname_fieldActionPerformed(evt);
-            }
-        });
 
         lastname_field.setBackground(new java.awt.Color(240, 240, 240));
         lastname_field.setForeground(new java.awt.Color(51, 51, 51));
         lastname_field.setText("Enter Your Last Name");
         lastname_field.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 1));
-        lastname_field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lastname_fieldActionPerformed(evt);
-            }
-        });
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(102, 102, 102));
@@ -130,11 +116,6 @@ public class SignupForm extends javax.swing.JPanel implements ActionListener{
         email_field.setForeground(new java.awt.Color(51, 51, 51));
         email_field.setText("Enter Your Email");
         email_field.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 1));
-        email_field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                email_fieldActionPerformed(evt);
-            }
-        });
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(102, 102, 102));
@@ -171,11 +152,6 @@ public class SignupForm extends javax.swing.JPanel implements ActionListener{
         password_field.setText("Enter Your Password");
         password_field.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 1));
         password_field.setPreferredSize(new java.awt.Dimension(123, 22));
-        password_field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                password_fieldActionPerformed(evt);
-            }
-        });
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(102, 102, 102));
@@ -185,11 +161,6 @@ public class SignupForm extends javax.swing.JPanel implements ActionListener{
         confirm_field.setText("Confirm Your Password");
         confirm_field.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 1));
         confirm_field.setPreferredSize(new java.awt.Dimension(123, 22));
-        confirm_field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                confirm_fieldActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -286,22 +257,6 @@ public class SignupForm extends javax.swing.JPanel implements ActionListener{
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void id_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_id_fieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_id_fieldActionPerformed
-
-    private void firstname_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstname_fieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_firstname_fieldActionPerformed
-
-    private void lastname_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastname_fieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lastname_fieldActionPerformed
-
-    private void email_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_email_fieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_email_fieldActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         JFrame topFrame = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
@@ -310,14 +265,6 @@ public class SignupForm extends javax.swing.JPanel implements ActionListener{
             new Login();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void password_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_password_fieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_password_fieldActionPerformed
-
-    private void confirm_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirm_fieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_confirm_fieldActionPerformed
 
     private void textListener(JTextField field, String text) {
         field.addKeyListener(new KeyAdapter() {
@@ -334,8 +281,6 @@ public class SignupForm extends javax.swing.JPanel implements ActionListener{
                     field.setText(text);
                 }
             }
-            
-            
         });
     }
     
@@ -381,13 +326,44 @@ public class SignupForm extends javax.swing.JPanel implements ActionListener{
         return false;
     }
     
+    private boolean checkExistingUser() {
+        String idQuery = "SELECT * FROM users WHERE student_id = ?";
+        String emailQuery = "SELECT * FROM users WHERE email = ?";
+        
+        try {
+            PreparedStatement ps = c.prepareStatement(idQuery);
+            ps.setString(1, id_field.getText());
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next()) {
+                JOptionPane.showMessageDialog(null, "User ID: " + id_field.getText() + " Already Signed Up.", "Existing User", JOptionPane.ERROR_MESSAGE);
+                return true;
+            }
+            
+            PreparedStatement ps1 = c.prepareStatement(emailQuery);
+            ps1.setString(1, email_field.getText());
+            ResultSet rs1 = ps1.executeQuery();
+            
+            if(rs1.next()) {
+                JOptionPane.showMessageDialog(null, "Email: " + email_field.getText() + " Already Signed Up.", "Existing User", JOptionPane.ERROR_MESSAGE);
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SignupForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;
+        
+    };
+    
     @Override
     public void actionPerformed(ActionEvent e) {
        if(e.getSource() == signup_btn) {
            JFrame topFrame = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
            if(topFrame != null) {
                
-               validateFields();
+               if(validateFields()) return;
+               if(checkExistingUser()) return;
                String query = "INSERT INTO users (student_id, first_name, last_name, email, password) VALUES (?, ?, ?, ?, ?)";
                try {
                    PreparedStatement ps = c.prepareStatement(query);
