@@ -2,6 +2,7 @@ package swing.table;
 
 import java.awt.Color;
 import java.awt.Component;
+import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import swing.PanelAction;

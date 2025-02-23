@@ -13,7 +13,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import model.Current_User;
+import pages.Admin.Admin_Books;
 
 public class PanelAction extends javax.swing.JPanel {
     
@@ -24,10 +26,18 @@ public class PanelAction extends javax.swing.JPanel {
     private int book_id;
     
     
-    public PanelAction(String status, int book_id) {
+    public PanelAction(String status, int book_id, JFrame frame) {
         initComponents();
         this.book_id = book_id;
         setOpaque(false);
+        this.currentFrame = frame;
+        
+        if(!status.equalsIgnoreCase("REQUEST")) {
+            this.remove(approve_btn);
+            this.remove(reject_btn);
+            approve_btn.setEnabled(false);
+            reject_btn.setEnabled(false);
+        } 
     }
     
     public PanelAction() {
@@ -42,8 +52,9 @@ public class PanelAction extends javax.swing.JPanel {
         if(!status.equalsIgnoreCase("REQUEST")) {
             this.remove(approve_btn);
             this.remove(reject_btn);
+            approve_btn.setEnabled(false);
+            reject_btn.setEnabled(false);
         } 
-        
         setOpaque(false);
     }
     @SuppressWarnings("unchecked")
@@ -81,6 +92,11 @@ public class PanelAction extends javax.swing.JPanel {
         add(reset_btn);
     }// </editor-fold>//GEN-END:initComponents
 
+    public void restartFrame() {
+        currentFrame.dispose();
+        new Admin_Books();
+    }
+    
     private void approve_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_approve_btnActionPerformed
         String selectQuery = "SELECT * from books WHERE book_id = ?";
         String updateQuery = "INSERT INTO borrowed_books (student_id, book_id, borrowed_at, due_date) VALUES (?,?,?,?)";
@@ -107,24 +123,51 @@ public class PanelAction extends javax.swing.JPanel {
                 ps3.executeUpdate();
                 
                 JOptionPane.showMessageDialog(null, "Borrow Request has been approved!", "Request Approved!", JOptionPane.PLAIN_MESSAGE);
+                restartFrame();
             }
-            
 
         } catch (SQLException ex) {
             Logger.getLogger(PanelAction.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        
     }//GEN-LAST:event_approve_btnActionPerformed
 
     private void reset_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reset_btnActionPerformed
         // TODO add your handling code here:
-        System.out.println("Reject");
+        String updateQuery = "UPDATE books SET status = ?, borrowed_by = ? WHERE book_id = ?";
+        String deleteQuery = "DELETE FROM borrowed_books WHERE book_id = ?";
+        
+        try {
+            PreparedStatement ps = c.prepareStatement(updateQuery);
+            ps.setString(1, "AVAILABLE");
+            ps.setNull(2, java.sql.Types.VARCHAR);
+            ps.setInt(3, book_id);
+            ps.executeUpdate();
+            
+            PreparedStatement ps1 = c.prepareStatement(deleteQuery);
+            ps1.setInt(1, book_id);
+            ps1.executeUpdate();
+            restartFrame();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PanelAction.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_reset_btnActionPerformed
 
     private void reject_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reject_btnActionPerformed
-        // TODO add your handling code here:
-        System.out.println("Reset");
+        String updateQuery = "UPDATE books SET status = ?, borrowed_by = ? WHERE book_id = ?";
+         
+        try {
+            PreparedStatement ps = c.prepareStatement(updateQuery);
+            ps.setString(1, "AVAILABLE");
+            ps.setNull(2, java.sql.Types.VARCHAR);
+            ps.setInt(3, book_id);
+            ps.executeUpdate();
+            restartFrame();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PanelAction.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_reject_btnActionPerformed
 
 
