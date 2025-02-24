@@ -79,6 +79,7 @@ public class Admin_Profile extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(1080, 600));
 
         panelBorder1.setPreferredSize(new java.awt.Dimension(1080, 600));
 
@@ -104,6 +105,7 @@ public class Admin_Profile extends javax.swing.JFrame {
         profile_img.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         profile_img.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/profile/default_profile.png"))); // NOI18N
         profile_img.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        profile_img.setPreferredSize(new java.awt.Dimension(200, 200));
 
         profile_btn.setBackground(new java.awt.Color(27, 76, 140));
         profile_btn.setForeground(new java.awt.Color(255, 255, 255));
@@ -129,12 +131,13 @@ public class Admin_Profile extends javax.swing.JFrame {
                 .addContainerGap(88, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(profile_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(54, 54, 54))
-                    .addComponent(profile_img, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(69, 69, 69))
+                        .addGap(123, 123, 123))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(profile_img, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(70, 70, 70))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

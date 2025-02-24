@@ -24,8 +24,8 @@ public class Books_Overview extends javax.swing.JPanel {
         setBackground(new Color(0,0,0,0));
         addRows();
         
-        table.getColumnModel().getColumn(5).setCellRenderer(new TableActionCellRender());
-        table.getColumnModel().getColumn(5).setCellEditor(new TableActionCellEditor());
+        table.getColumnModel().getColumn(6).setCellRenderer(new TableActionCellRender());
+        table.getColumnModel().getColumn(6).setCellEditor(new TableActionCellEditor());
     }
     
     
@@ -35,7 +35,7 @@ public class Books_Overview extends javax.swing.JPanel {
             return;
         }
         
-        String query = "SELECT * FROM books";
+        String query = "SELECT * FROM books AS b LEFT JOIN borrowed_books as bb ON b.book_id = bb.book_id";
          try {
             PreparedStatement ps = c.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
@@ -45,12 +45,16 @@ public class Books_Overview extends javax.swing.JPanel {
                 String author = rs.getString("author");
                 String status = rs.getString("status");
                 String borrowed_by = rs.getString("borrowed_by");
+                String due_date = rs.getString("due_date");
                 if(borrowed_by == null) {
                     borrowed_by = "";
                 }
+                if(due_date == null) {
+                    due_date = "";
+                }
                 LocalDateTime added_at = rs.getObject("created_at", LocalDateTime.class);
                 
-                table.addRow(new Object[]{book_id, title, author, status, borrowed_by, added_at});
+                table.addRow(new Object[]{book_id, title, author, status, borrowed_by, due_date, added_at});
             }
         } catch (SQLException ex) {
             Logger.getLogger(Dashboard_Overview.class.getName()).log(Level.SEVERE, null, ex);
@@ -94,11 +98,11 @@ public class Books_Overview extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Id", "Title", "Author", "Status", "Borrower", "Actions"
+                "Id", "Title", "Author", "Status", "Borrower", "Due Date", "Actions"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true
+                false, false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

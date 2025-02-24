@@ -186,7 +186,7 @@ public class User_Model {
                     ps1.setDouble(1, penalty);
                     ps1.setInt(2, id);
                     ps1.executeUpdate();
-                    JOptionPane.showMessageDialog(null, "The book titled " + title + " is overdue. Please return it as soon as possible to avoid further penalties.", "Penalty Updated" , JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "The book titled " + title + " is " + overdueDays + " days overdue. Your Penalty for this book is " + penalty +" . Please return it as soon as possible to avoid further penalties.", "Penalty Updated" , JOptionPane.WARNING_MESSAGE);
                 }
                 
             }
