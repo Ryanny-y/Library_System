@@ -1,18 +1,33 @@
 package pages.User;
+import config.ConnDB;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import model.Book_Model;
 import model.Current_User;
 import swing.AuthButton;
 import model.User_Model;
 import pages.Login;
-import pages.User.Home;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Profile extends javax.swing.JFrame {
 
     User_Model user = Current_User.getCurrentUser();
+    private String cover_img;
+    ConnDB con = ConnDB.getInstance();
+    Connection c = con.getConnection();
     
     public Profile() {
         initComponents();
@@ -22,6 +37,7 @@ public class Profile extends javax.swing.JFrame {
         if(user != null) {
             initInfo();
         }
+        setProfile();
     }
     
     private void initInfo() {
@@ -46,7 +62,8 @@ public class Profile extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         logoutBtn = new AuthButton("Logout");
-        jLabel12 = new javax.swing.JLabel();
+        profile_img = new javax.swing.JLabel();
+        profile_btn = new javax.swing.JButton();
         studentInfoBox = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         student_num = new javax.swing.JLabel();
@@ -61,7 +78,6 @@ public class Profile extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1080, 600));
 
         panelBorder1.setPreferredSize(new java.awt.Dimension(1080, 600));
 
@@ -83,30 +99,49 @@ public class Profile extends javax.swing.JFrame {
             }
         });
 
-        jLabel12.setBackground(new java.awt.Color(255, 102, 102));
-        jLabel12.setText("Image");
-        jLabel12.setOpaque(true);
+        profile_img.setBackground(new java.awt.Color(255, 102, 102));
+        profile_img.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        profile_img.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/profile/default_profile.png"))); // NOI18N
+
+        profile_btn.setBackground(new java.awt.Color(27, 76, 140));
+        profile_btn.setForeground(new java.awt.Color(255, 255, 255));
+        profile_btn.setText("Choose Profile");
+        profile_btn.setBorder(null);
+        profile_btn.setBorderPainted(false);
+        profile_btn.setFocusPainted(false);
+        profile_btn.setFocusable(false);
+        profile_btn.setOpaque(true);
+        profile_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                profile_btnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
-                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addGap(84, 84, 84)
+                .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(88, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(profile_img, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(124, 124, 124)
+                .addComponent(profile_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addComponent(profile_img, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(profile_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32))
         );
@@ -211,7 +246,7 @@ public class Profile extends javax.swing.JFrame {
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(penalty, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
@@ -277,6 +312,25 @@ public class Profile extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void setProfile() {
+        String query = "SELECT profile_img FROM users WHERE student_id = ?";
+        
+        try {
+            PreparedStatement ps = c.prepareStatement(query);
+            ps.setString(1, user.getStudent_id());
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next()) {
+                String img = rs.getString("profile_img");
+                profile_img.setIcon(toIcon(img));
+            }
+            
+                        
+        } catch (SQLException ex) {
+            Logger.getLogger(Profile.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
         // TODO add your handling code here:
         Current_User.setCurrentUser(null);
@@ -288,12 +342,81 @@ public class Profile extends javax.swing.JFrame {
         new Login();
     }//GEN-LAST:event_logoutBtnActionPerformed
 
+    private void getFile() {
+        JFileChooser fileChooser = new JFileChooser();
+        int result = fileChooser.showOpenDialog(null);
+        
+        if(result == JFileChooser.APPROVE_OPTION) {
+            File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
+            cover_img = file.getName();
+            
+            JFileChooser folderChooser = new JFileChooser();
+            folderChooser.setCurrentDirectory(new File(".\\src\\images\\profile"));
+            folderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            int folderResult = folderChooser.showOpenDialog(null);
+            
+            if(folderResult == JFileChooser.APPROVE_OPTION) {
+                File destinationFolder = folderChooser.getSelectedFile();
+                
+                File copyFile = new File(destinationFolder, file.getName());
+                
+                try {
+                    copyFile(file, copyFile);
+                } catch (Exception e) {
+                    System.out.println("Copy failed!");
+                }
+            }
+            
+        }
+    }
+    
+    private void copyFile(File file, File path) throws IOException {
+            Path srcPath = file.toPath();
+            Path destinationPath = path.toPath();
+
+            Files.copy(srcPath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
+    }
+    
+    private void profile_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profile_btnActionPerformed
+        getFile();
+        String query = "UPDATE users SET profile_img = ? WHERE student_id = ?";
+        
+        try {
+            PreparedStatement ps = c.prepareStatement(query);
+            ps.setString(1, cover_img);
+            ps.setString(2, user.getStudent_id());
+            ps.executeUpdate();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Profile.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        profile_img.setIcon(toIcon(cover_img));
+        this.dispose();
+        new Profile();
+    }//GEN-LAST:event_profile_btnActionPerformed
+
+    public Icon toIcon(String icon) {
+        try {
+            ImageIcon imageIcon = new ImageIcon(getClass().getResource("/images/profile/" + icon));
+            Image image = imageIcon.getImage();
+
+            Image resizedImage = image.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+            return new ImageIcon(resizedImage);
+        } catch (Exception e) {
+            ImageIcon imageIcon = new ImageIcon(getClass().getResource("/images/profile/default_profile.png"));
+            Image image = imageIcon.getImage();
+
+            Image resizedImage = image.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+            return new ImageIcon(resizedImage);
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel email;
     private components.UserFrameHeader frameHeader2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
@@ -306,6 +429,8 @@ public class Profile extends javax.swing.JFrame {
     private swing.PanelBorder panelBorder1;
     private javax.swing.JLabel password;
     private javax.swing.JLabel penalty;
+    private javax.swing.JButton profile_btn;
+    private javax.swing.JLabel profile_img;
     private javax.swing.JPanel studentInfoBox;
     private javax.swing.JLabel student_num;
     // End of variables declaration//GEN-END:variables

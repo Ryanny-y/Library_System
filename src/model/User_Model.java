@@ -15,6 +15,20 @@ import javax.swing.JOptionPane;
 
 public class User_Model {
 
+    /**
+     * @return the profile_img
+     */
+    public String getProfile_img() {
+        return profile_img;
+    }
+
+    /**
+     * @param profile_img the profile_img to set
+     */
+    public void setProfile_img(String profile_img) {
+        this.profile_img = profile_img;
+    }
+
     public String getStudent_id() {
         return student_id;
     }
@@ -79,7 +93,7 @@ public class User_Model {
         this.joined_at = joined_at;
     }
     
-    private String student_id, first_name, last_name, email, password;
+    private String student_id, first_name, last_name, email, password, profile_img;
     private User_Role role = User_Role.USER;
     private double penalty;
     private LocalDateTime joined_at;
@@ -93,12 +107,13 @@ public class User_Model {
         this.role = convertRole(role);
     }
     
-    public User_Model(String student_id, String first_name, String last_name, String email, String password, String role, double penalty, LocalDateTime joined_at) {
+    public User_Model(String student_id, String first_name, String last_name, String email, String password, String profile_img, String role, double penalty, LocalDateTime joined_at) {
         this.student_id = student_id;
         this.first_name = first_name;
         this.last_name = last_name;
         this.email = email;
         this.password = password;
+        this.profile_img = profile_img;
         this.role = convertRole(role);
         this.penalty = penalty;
         this.joined_at = joined_at;

@@ -82,11 +82,6 @@ public class Add_Book_Frame extends javax.swing.JFrame implements ActionListener
 
         title_field.setBackground(new java.awt.Color(230, 230, 230));
         title_field.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
-        title_field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                title_fieldActionPerformed(evt);
-            }
-        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 51, 51));
@@ -94,11 +89,6 @@ public class Add_Book_Frame extends javax.swing.JFrame implements ActionListener
 
         author_field.setBackground(new java.awt.Color(230, 230, 230));
         author_field.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
-        author_field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                author_fieldActionPerformed(evt);
-            }
-        });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(51, 51, 51));
@@ -120,11 +110,6 @@ public class Add_Book_Frame extends javax.swing.JFrame implements ActionListener
 
         year_published_field.setBackground(new java.awt.Color(230, 230, 230));
         year_published_field.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
-        year_published_field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                year_published_fieldActionPerformed(evt);
-            }
-        });
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(51, 51, 51));
@@ -145,6 +130,11 @@ public class Add_Book_Frame extends javax.swing.JFrame implements ActionListener
         close_btn.setContentAreaFilled(false);
         close_btn.setFocusPainted(false);
         close_btn.setFocusable(false);
+        close_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                close_btnActionPerformed(evt);
+            }
+        });
 
         add_book_btn.setBackground(new java.awt.Color(27, 76, 140));
         add_book_btn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -239,18 +229,9 @@ public class Add_Book_Frame extends javax.swing.JFrame implements ActionListener
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void title_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_title_fieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_title_fieldActionPerformed
-
-    private void author_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_author_fieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_author_fieldActionPerformed
-
-    private void year_published_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_year_published_fieldActionPerformed
-        // TODO add your handling code here:
+    private void close_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_close_btnActionPerformed
         this.dispose();
-    }//GEN-LAST:event_year_published_fieldActionPerformed
+    }//GEN-LAST:event_close_btnActionPerformed
 
     private void getFile() {
         JFileChooser fileChooser = new JFileChooser();
@@ -314,9 +295,6 @@ public class Add_Book_Frame extends javax.swing.JFrame implements ActionListener
             }
         }
         
-        if(e.getSource() == close_btn) {
-            this.dispose();
-        }
     }
 
     

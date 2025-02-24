@@ -25,12 +25,19 @@ public class Dashboard_Overview extends javax.swing.JPanel {
     }
     
     private void initCard() {
+        if (c == null) {
+            System.err.println("Database connection is NULL!");
+            return;
+        }
+        
         String query = "SELECT (SELECT COUNT(*) FROM users), " + 
                "(SELECT COUNT(*) FROM books), " + 
-               "(SELECT COUNT(*) FROM borrowed_books)";
+               "(SELECT COUNT(*) FROM borrowed_books), " + 
+               "(SELECT COUNT(*) FROM borrowed_books WHERE returned_at IS NULL AND CURDATE() > due_date)";
         int totalUsers = 0;
         int totalBooks = 0;
         int totalBorrowedBooks = 0;
+        int totalOverdue = 0;
         
         try {
             PreparedStatement ps = c.prepareStatement(query);
@@ -40,6 +47,7 @@ public class Dashboard_Overview extends javax.swing.JPanel {
                 totalUsers = rs.getInt(1);           
                 totalBooks = rs.getInt(2);          
                 totalBorrowedBooks = rs.getInt(3);
+                totalOverdue = rs.getInt(4);
             }
             
         } catch (SQLException ex) {
@@ -48,9 +56,9 @@ public class Dashboard_Overview extends javax.swing.JPanel {
         
         
         card1.setData(String.valueOf(totalUsers) , "UserBig", "Total Users");
-        card2.setData(String.valueOf(totalBooks), "UserBig", "Total Books");
-        card3.setData(String.valueOf(totalBorrowedBooks), "UserBig", "Borrowed Books");
-        card4.setData("123", "UserBig", "Overdue Books");
+        card2.setData(String.valueOf(totalBooks), "BookBig", "Total Books");
+        card3.setData(String.valueOf(totalBorrowedBooks), "BorrowedBook", "Borrowed Books");
+        card4.setData(String.valueOf(totalOverdue), "OverdueBig", "Overdue Books");
     }
     
     private void addRow() {

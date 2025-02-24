@@ -270,12 +270,13 @@ public class LoginForm extends javax.swing.JPanel implements ActionListener {
                         String last_name = rs.getString("last_name");
                         String email = rs.getString("email");
                         String password = rs.getString("password");
+                        String profile_img = rs.getString("profile_img");
                         String role = rs.getString("role");
                         double penalty = rs.getDouble("penalty");
                         Timestamp timestamp = rs.getTimestamp("joined_at");
                         LocalDateTime joined_at = timestamp.toLocalDateTime();
                         
-                        user = new User_Model(student_id, first_name, last_name, email, password, role, penalty, joined_at);
+                        user = new User_Model(student_id, first_name, last_name, email, password, profile_img, role, penalty, joined_at);
                         Current_User.setCurrentUser(user);
                         
                         if (user.getRole() == User_Role.USER) {
