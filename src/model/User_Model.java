@@ -155,7 +155,6 @@ public class User_Model {
             ps1.setDouble(1, totalPenalty);
             ps1.setString(2, student_id);
             ps1.executeUpdate();
-            Current_User.getCurrentUser().setPenalty(totalPenalty);
         } catch (SQLException ex) {
             Logger.getLogger(User_Model.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -165,16 +164,18 @@ public class User_Model {
         ConnDB con = ConnDB.getInstance();
         Connection c = con.getConnection();
         
-        String selectQuery = "SELECT * FROM borrowed_books AS bb INNER JOIN books ON bb.book_id = books.book_id WHERE bb.returned_at IS NULL AND CURDATE() > bb.due_date";
+        String selectQuery = "SELECT * FROM borrowed_books AS bb INNER JOIN books ON bb.book_id = books.book_id WHERE bb.returned_at IS NULL AND CURDATE() > bb.due_date AND student_id = ?";
         
         try {
             PreparedStatement ps = c.prepareStatement(selectQuery);
+            ps.setString(1, Current_User.getCurrentUser().getStudent_id());
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()) {
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
                 LocalDate dueDate = rs.getObject("due_date", LocalDate.class);
+                
                 
                 LocalDate curDate = LocalDate.now();
                 long overdueDays = ChronoUnit.DAYS.between(dueDate, curDate);
