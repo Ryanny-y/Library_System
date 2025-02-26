@@ -155,6 +155,7 @@ public class User_Model {
             ps1.setDouble(1, totalPenalty);
             ps1.setString(2, student_id);
             ps1.executeUpdate();
+            Current_User.getCurrentUser().setPenalty(totalPenalty);
         } catch (SQLException ex) {
             Logger.getLogger(User_Model.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -259,7 +259,7 @@ public class LoginForm extends javax.swing.JPanel implements ActionListener {
             JFrame topFrame = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
             if (topFrame != null) {
                 try (Connection c = db.getConnection();
-                     PreparedStatement ps = c.prepareStatement("SELECT * FROM users WHERE email = ? AND password = ?")) {
+                    PreparedStatement ps = c.prepareStatement("SELECT * FROM users WHERE email = ? AND password = ?")) {
                     ps.setString(1, email);
                     ps.setString(2, password);
                     ResultSet rs = ps.executeQuery();
